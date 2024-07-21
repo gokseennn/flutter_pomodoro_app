@@ -53,8 +53,9 @@ class CommonScreen<T> extends GetView<T> {
                           _buildDrawerItem(Icons.add, 'wardrobe', () {
                             Get.offAllNamed('/wardrobe');
                           }),
-                          _buildDrawerItem(
-                              Icons.shopping_basket, 'store', () {}),
+                          _buildDrawerItem(Icons.shopping_basket, 'store', () {
+                            Get.offAllNamed('/store');
+                          }),
                           _buildDrawerItem(Icons.settings, 'settings', () {}),
                         ],
                       ),
