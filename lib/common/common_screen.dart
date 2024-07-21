@@ -45,7 +45,9 @@ class CommonScreen<T> extends GetView<T> {
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildDrawerItem(Icons.timer, 'timer', () {}),
+                          _buildDrawerItem(Icons.timer, 'timer', () {
+                            Get.offAllNamed('/home');
+                          }),
                           _buildDrawerItem(Icons.coffee, 'break', () {}),
                           _buildDrawerItem(Icons.pets, 'pets', () {
                             Get.offAllNamed(MyPets.routeName);
@@ -56,7 +58,9 @@ class CommonScreen<T> extends GetView<T> {
                           _buildDrawerItem(Icons.shopping_basket, 'store', () {
                             Get.offAllNamed('/store');
                           }),
-                          _buildDrawerItem(Icons.settings, 'settings', () {}),
+                          _buildDrawerItem(Icons.settings, 'settings', () {
+                            Get.offAllNamed('/settings');
+                          }),
                         ],
                       ),
                     ),

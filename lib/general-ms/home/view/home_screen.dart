@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12.0),
-                  child: SvgPicture.asset('assets/cat/daisy.svg'),
+                  child: SvgPicture.asset('assets/cat/test.svg'),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 24.0),
