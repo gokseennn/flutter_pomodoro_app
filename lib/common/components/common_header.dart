@@ -21,7 +21,12 @@ class CommonHeader extends StatelessWidget {
           const Spacer(),
           SvgPicture.asset(
             'assets/icons/app_bar_fish.svg',
+            width: 40,
           ),
+          const Padding(
+            padding: EdgeInsets.only(left: 8.0, right: 8),
+            child: Text("27"),
+          )
         ],
       ),
     );
