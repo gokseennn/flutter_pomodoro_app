@@ -7,18 +7,17 @@ import 'package:pomodoro_app/user-ms/my_pets/view/my_pets.dart';
 class CommonScreen<T> extends GetView<T> {
   final List<Widget> Function(T) body;
   final PreferredSizeWidget? appBar;
-  final Future<void> Function()? onRefresh;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final String? title;
 
-  const CommonScreen({
-    super.key,
-    required this.body,
-    this.appBar,
-    this.onRefresh,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.start,
-  });
+  const CommonScreen(
+      {super.key,
+      required this.body,
+      this.appBar,
+      this.mainAxisAlignment = MainAxisAlignment.start,
+      this.crossAxisAlignment = CrossAxisAlignment.start,
+      this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class CommonScreen<T> extends GetView<T> {
         key: GlobalKey<ScaffoldState>(),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
-          child: CommonHeader(),
+          child: CommonHeader(title: title),
         ),
         drawer: Drawer(
           child: Container(
@@ -51,7 +50,9 @@ class CommonScreen<T> extends GetView<T> {
                           _buildDrawerItem(Icons.pets, 'pets', () {
                             Get.offAllNamed(MyPets.routeName);
                           }),
-                          _buildDrawerItem(Icons.add, 'wardrobe', () {}),
+                          _buildDrawerItem(Icons.add, 'wardrobe', () {
+                            Get.offAllNamed('/wardrobe');
+                          }),
                           _buildDrawerItem(
                               Icons.shopping_basket, 'store', () {}),
                           _buildDrawerItem(Icons.settings, 'settings', () {}),
@@ -70,16 +71,12 @@ class CommonScreen<T> extends GetView<T> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: SafeArea(
-                child: RefreshIndicator(
-                  color: Get.theme.colorScheme.secondary,
-                  onRefresh: onRefresh ?? () async {},
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: crossAxisAlignment,
-                      mainAxisAlignment: mainAxisAlignment,
-                      children: body(controller),
-                    ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: crossAxisAlignment,
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: body(controller),
                   ),
                 ),
               ),

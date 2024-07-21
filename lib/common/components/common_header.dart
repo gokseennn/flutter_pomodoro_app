@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pomodoro_app/common/controller/drawer_controller.dart';
 
 class CommonHeader extends StatelessWidget {
-  CommonHeader({super.key});
+  CommonHeader({super.key, this.title});
+  final String? title;
   final DrawerAppController drawerController = Get.find<DrawerAppController>();
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,13 @@ class CommonHeader extends StatelessWidget {
               width: 28,
             ),
           ),
+          if (title != null)
+            Text(
+              title!,
+              style: GoogleFonts.quicksand(
+                fontSize: 24,
+              ),
+            ),
           const Spacer(),
           SvgPicture.asset(
             'assets/icons/app_bar_fish.svg',
