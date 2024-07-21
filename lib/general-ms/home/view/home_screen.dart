@@ -19,11 +19,42 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'daisy',
                   style: GoogleFonts.quicksand(
-                    fontSize: 24,
+                    fontSize: 48,
                     color: Colors.black,
                   ),
                 ),
-                SvgPicture.asset('assets/cat/daisy.svg'),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: SvgPicture.asset('assets/cat/daisy.svg'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: Text(
+                    "30:00",
+                    style: GoogleFonts.quicksand(fontSize: 64),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFCCE5FF),
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 80, vertical: 15),
+                    ),
+                    onPressed: () {
+                      // Buton tıklandığında yapılacak işlemler
+                    },
+                    child: Text(
+                      'care',
+                      style: GoogleFonts.quicksand(fontSize: 18),
+                    ),
+                  ),
+                )
               ],
             ),
           ];

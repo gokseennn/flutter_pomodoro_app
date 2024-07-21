@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:pomodoro_app/common/controller/drawer_controller.dart';
 
 class CommonHeader extends StatelessWidget {
-  const CommonHeader({super.key});
-
+  CommonHeader({super.key});
+  final DrawerAppController drawerController = Get.find<DrawerAppController>();
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 125,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 255, 250, 229),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 0,
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      color: const Color.fromARGB(255, 255, 250, 229),
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/icons/nav_button.svg',
-            width: 20,
+          IconButton(
+            onPressed: drawerController.openDrawer,
+            icon: SvgPicture.asset(
+              'assets/icons/nav_button.svg',
+              width: 28,
+            ),
           ),
           const Spacer(),
           SvgPicture.asset(
