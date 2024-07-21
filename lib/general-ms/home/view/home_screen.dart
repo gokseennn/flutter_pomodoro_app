@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
@@ -24,9 +23,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
-                  child: SvgPicture.asset('assets/cat/test.svg'),
-                ),
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Image.asset("assets/cat/cat.jpg")),
                 Padding(
                   padding: const EdgeInsets.only(top: 24.0),
                   child: Text(

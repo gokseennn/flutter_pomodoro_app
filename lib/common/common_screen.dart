@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/components/common_header.dart';
 import 'package:pomodoro_app/common/controller/drawer_controller.dart';
-import 'package:pomodoro_app/user-ms/my_pets/view/my_pets.dart';
 
 class CommonScreen<T> extends GetView<T> {
   final List<Widget> Function(T) body;
@@ -24,6 +23,7 @@ class CommonScreen<T> extends GetView<T> {
     return GetBuilder<DrawerAppController>(
       init: DrawerAppController(),
       builder: (drawerController) => Scaffold(
+        backgroundColor: Colors.white,
         key: GlobalKey<ScaffoldState>(),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -45,20 +45,32 @@ class CommonScreen<T> extends GetView<T> {
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildDrawerItem(Icons.timer, 'timer', () {
+                          _buildDrawerItem(
+                              Image.asset("assets/icons/timer.png"), 'timer',
+                              () {
                             Get.offAllNamed('/home');
                           }),
-                          _buildDrawerItem(Icons.coffee, 'break', () {}),
-                          _buildDrawerItem(Icons.pets, 'pets', () {
-                            Get.offAllNamed(MyPets.routeName);
-                          }),
-                          _buildDrawerItem(Icons.add, 'wardrobe', () {
-                            Get.offAllNamed('/wardrobe');
-                          }),
-                          _buildDrawerItem(Icons.shopping_basket, 'store', () {
-                            Get.offAllNamed('/store');
-                          }),
-                          _buildDrawerItem(Icons.settings, 'settings', () {
+                          // _buildDrawerItem(
+                          //     Image.asset("assets/icons/break.png"),
+                          //     'break',
+                          //     () {}),
+                          // _buildDrawerItem(
+                          //     Image.asset("assets/icons/pets.png"), 'pets', () {
+                          //   Get.offAllNamed(MyPets.routeName);
+                          // }),
+                          // _buildDrawerItem(
+                          //     Image.asset("assets/icons/wardrobe.png"),
+                          //     'wardrobe', () {
+                          //   Get.offAllNamed('/wardrobe');
+                          // }),
+                          // _buildDrawerItem(
+                          //     Image.asset("assets/icons/store.png"), 'store',
+                          //     () {
+                          //   Get.offAllNamed('/store');
+                          // }),
+                          _buildDrawerItem(
+                              Image.asset("assets/icons/settings.png"),
+                              'settings', () {
                             Get.offAllNamed('/settings');
                           }),
                         ],
@@ -92,7 +104,7 @@ class CommonScreen<T> extends GetView<T> {
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title, void Function()? onTap) {
+  Widget _buildDrawerItem(Widget icon, String title, void Function()? onTap) {
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -109,7 +121,7 @@ class CommonScreen<T> extends GetView<T> {
                   const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
               child: Row(
                 children: [
-                  Icon(icon, color: Colors.black, size: 24),
+                  icon,
                   const SizedBox(width: 16),
                   Text(
                     title,

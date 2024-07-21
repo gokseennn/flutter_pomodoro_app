@@ -42,7 +42,7 @@ class MyPets extends StatelessWidget {
                         child: Center(
                             child: Column(
                           children: [
-                            SvgPicture.asset("assets/cat/cat.svg"),
+                            Image.asset("assets/cat/my_cats.jpg"),
                             Text(
                               "daisy",
                               style: GoogleFonts.quicksand(fontSize: 24),
