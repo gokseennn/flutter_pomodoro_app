@@ -23,8 +23,8 @@ class CommonHeader extends StatelessWidget {
           ),
         ],
       ),
-      margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12)
+          .add(EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
       child: Row(
         children: [
           IconButton(

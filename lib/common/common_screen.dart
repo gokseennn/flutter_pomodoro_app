@@ -6,6 +6,7 @@ import 'package:pomodoro_app/common/controller/drawer_controller.dart';
 class CommonScreen<T> extends GetView<T> {
   final List<Widget> Function(T) body;
   final PreferredSizeWidget? appBar;
+  final bool showAppbar;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final String? title;
@@ -14,6 +15,7 @@ class CommonScreen<T> extends GetView<T> {
       {super.key,
       required this.body,
       this.appBar,
+      this.showAppbar = true,
       this.mainAxisAlignment = MainAxisAlignment.start,
       this.crossAxisAlignment = CrossAxisAlignment.start,
       this.title});
@@ -23,12 +25,14 @@ class CommonScreen<T> extends GetView<T> {
     return GetBuilder<DrawerAppController>(
       init: DrawerAppController(),
       builder: (drawerController) => Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFE8E8E8),
         key: GlobalKey<ScaffoldState>(),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
-          child: CommonHeader(title: title),
-        ),
+        appBar: showAppbar
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(70),
+                child: CommonHeader(title: title),
+              )
+            : null,
         drawer: Drawer(
           child: Container(
             color: const Color(0xFFF5F5DC),
@@ -39,7 +43,7 @@ class CommonScreen<T> extends GetView<T> {
                     child: Container(
                       margin: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5DC), // Bej rengi
+                        color: const Color(0xFFF5F5DC), // Bej reng±i
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListView(
