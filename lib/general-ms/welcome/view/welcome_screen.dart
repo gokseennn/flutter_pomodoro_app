@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
+import 'package:pomodoro_app/general-ms/sign-up/view/sign_up_screen.dart';
 import 'package:pomodoro_app/general-ms/welcome/controller/welcome_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                                   horizontal: 50, vertical: 12),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8))),
-                          onPressed: () {},
+                          onPressed: () => Get.toNamed(SignUpScreen.routeName),
                           child: const Text(
                             "Get Started",
                             style: TextStyle(

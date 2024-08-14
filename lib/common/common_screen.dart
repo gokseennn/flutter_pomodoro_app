@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/components/common_header.dart';
-import 'package:pomodoro_app/common/controller/drawer_controller.dart';
 
 class CommonScreen<T> extends GetView<T> {
   final List<Widget> Function(T) body;
@@ -10,11 +9,13 @@ class CommonScreen<T> extends GetView<T> {
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final String? title;
+  final bool showIcon;
 
   const CommonScreen(
       {super.key,
       required this.body,
       this.appBar,
+      this.showIcon = false,
       this.showAppbar = true,
       this.mainAxisAlignment = MainAxisAlignment.start,
       this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -22,120 +23,36 @@ class CommonScreen<T> extends GetView<T> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DrawerAppController>(
-      init: DrawerAppController(),
-      builder: (drawerController) => Scaffold(
-        backgroundColor: const Color(0xFFE8E8E8),
-        key: GlobalKey<ScaffoldState>(),
-        appBar: showAppbar
-            ? PreferredSize(
-                preferredSize: const Size.fromHeight(70),
-                child: CommonHeader(title: title),
-              )
-            : null,
-        drawer: Drawer(
-          child: Container(
-            color: const Color(0xFFF5F5DC),
-            child: SafeArea(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5DC), // Bej reng±i
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          _buildDrawerItem(
-                              Image.asset("assets/icons/timer.png"), 'timer',
-                              () {
-                            Get.offAllNamed('/home');
-                          }),
-                          // _buildDrawerItem(
-                          //     Image.asset("assets/icons/break.png"),
-                          //     'break',
-                          //     () {}),
-                          // _buildDrawerItem(
-                          //     Image.asset("assets/icons/pets.png"), 'pets', () {
-                          //   Get.offAllNamed(MyPets.routeName);
-                          // }),
-                          // _buildDrawerItem(
-                          //     Image.asset("assets/icons/wardrobe.png"),
-                          //     'wardrobe', () {
-                          //   Get.offAllNamed('/wardrobe');
-                          // }),
-                          // _buildDrawerItem(
-                          //     Image.asset("assets/icons/store.png"), 'store',
-                          //     () {
-                          //   Get.offAllNamed('/store');
-                          // }),
-                          _buildDrawerItem(
-                              Image.asset("assets/icons/settings.png"),
-                              'settings', () {
-                            Get.offAllNamed('/settings');
-                          }),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+    return Scaffold(
+      backgroundColor: const Color(0xFFE8E8E8),
+      key: GlobalKey<ScaffoldState>(),
+      appBar: showAppbar
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(70),
+              child: CommonHeader(
+                title: title,
+                showIcon: showIcon,
               ),
-            ),
-          ),
-        ),
-        body: Builder(
-          builder: (BuildContext context) {
-            Get.put<ScaffoldState>(Scaffold.of(context), permanent: false);
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: SafeArea(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: crossAxisAlignment,
-                    mainAxisAlignment: mainAxisAlignment,
-                    children: body(controller),
-                  ),
+            )
+          : null,
+      body: Builder(
+        builder: (BuildContext context) {
+          Get.put<ScaffoldState>(Scaffold.of(context), permanent: false);
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: SafeArea(
+              child: SizedBox(
+                width: double.infinity,
+                height: Get.height,
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignment,
+                  mainAxisAlignment: mainAxisAlignment,
+                  children: body(controller),
                 ),
               ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawerItem(Widget icon, String title, void Function()? onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        child: Material(
-          color: Colors.transparent,
-          child: Ink(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.transparent,
             ),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-              child: Row(
-                children: [
-                  icon,
-                  const SizedBox(width: 16),
-                  Text(
-                    title,
-                    style: const TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
