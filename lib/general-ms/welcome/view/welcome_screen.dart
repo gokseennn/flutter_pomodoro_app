@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
-import 'package:pomodoro_app/general-ms/sign-up/view/sign_up_screen.dart';
+import 'package:pomodoro_app/user-ms/sign-up/view/sign_up_screen.dart';
 import 'package:pomodoro_app/general-ms/welcome/controller/welcome_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {

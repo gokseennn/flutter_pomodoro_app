@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/common/components/common_text_form_field.dart';
-import 'package:pomodoro_app/general-ms/sign-up/controller/sign_up_controller.dart';
-import 'package:pomodoro_app/general-ms/sign-up/view/components/phone_number.dart';
+import 'package:pomodoro_app/user-ms/sign-in/view/sign_in_screen.dart';
+import 'package:pomodoro_app/user-ms/sign-up/controller/sign_up_controller.dart';
+import 'package:pomodoro_app/user-ms/sign-up/view/components/phone_number.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -73,11 +75,14 @@ class SignUpScreen extends StatelessWidget {
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold)),
                           ),
-                          const Text("Login",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold)),
+                          InkWell(
+                            onTap: () => Get.toNamed(SignInScreen.routeName),
+                            child: const Text("Login",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ),
