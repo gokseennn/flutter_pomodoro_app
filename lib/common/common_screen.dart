@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/components/bottom_nav_bar.dart';
 import 'package:pomodoro_app/common/components/common_header.dart';
 
 class CommonScreen<T> extends GetView<T> {
@@ -24,50 +25,36 @@ class CommonScreen<T> extends GetView<T> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFE8E8E8),
-      key: GlobalKey<ScaffoldState>(),
-      appBar: showAppbar
-          ? PreferredSize(
-              preferredSize: const Size.fromHeight(70),
-              child: CommonHeader(
-                title: title,
-                showIcon: showIcon,
-              ),
-            )
-          : null,
-      body: Builder(
-        builder: (BuildContext context) {
-          Get.put<ScaffoldState>(Scaffold.of(context), permanent: false);
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: SafeArea(
-              child: SizedBox(
-                width: double.infinity,
-                height: Get.height,
-                child: Column(
-                  crossAxisAlignment: crossAxisAlignment,
-                  mainAxisAlignment: mainAxisAlignment,
-                  children: body(controller),
+        backgroundColor: const Color(0xFFE8E8E8),
+        key: GlobalKey<ScaffoldState>(),
+        appBar: showAppbar
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(70),
+                child: CommonHeader(
+                  title: title,
+                  showIcon: showIcon,
+                ),
+              )
+            : null,
+        body: Builder(
+          builder: (BuildContext context) {
+            Get.put<ScaffoldState>(Scaffold.of(context), permanent: false);
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: SafeArea(
+                child: SizedBox(
+                  width: double.infinity,
+                  height: Get.height,
+                  child: Column(
+                    crossAxisAlignment: crossAxisAlignment,
+                    mainAxisAlignment: mainAxisAlignment,
+                    children: body(controller),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
-      bottomNavigationBar: BottomNavigationBar(items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+            );
+          },
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.business),
-          label: 'Business',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          label: 'School',
-        ),
-      ]),
-    );
+        bottomNavigationBar: const BottomNavBar());
   }
 }
