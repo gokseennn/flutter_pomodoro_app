@@ -7,7 +7,7 @@ import 'package:pomodoro_app/general-ms/pomodoro/view/components/focus_break.dar
 
 class PomodoroScreen extends StatelessWidget {
   const PomodoroScreen({super.key});
-  static const String routeName = '/home';
+  static const String routeName = '/pomodoro';
   @override
   Widget build(BuildContext context) {
     return CommonScreen<PomodoroController>(

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/view/pomodoro_screen.dart';
 
 class BottomNavController extends GetxController {
   var selectedIndex = 0.obs;
@@ -7,10 +9,10 @@ class BottomNavController extends GetxController {
     selectedIndex.value = index;
     switch (index) {
       case 0:
-        Get.offAllNamed('/home');
+        Get.offAllNamed(PomodoroScreen.routeName);
         break;
       case 1:
-        Get.offAllNamed('/sign-in');
+        Get.offAllNamed(HomeScreen.routeName);
         break;
       case 2:
         Get.offAllNamed('/sign-up');

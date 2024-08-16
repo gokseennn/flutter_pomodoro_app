@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:pomodoro_app/general-ms/home/controller/home_binding.dart';
+import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_binding.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/view/pomodoro_screen.dart';
 import 'package:pomodoro_app/user-ms/sign-in/controller/sign_in_binding.dart';
@@ -28,5 +30,9 @@ class GeneralRoutes {
         name: SignInScreen.routeName,
         page: () => const SignInScreen(),
         binding: SignInBinding()),
+    GetPage(
+        name: HomeScreen.routeName,
+        page: () => const HomeScreen(),
+        binding: HomeBinding())
   ];
 }

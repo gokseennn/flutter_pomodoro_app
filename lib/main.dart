@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pomodoro_app/general-ms/general_routes.dart';
 import 'package:pomodoro_app/general-ms/welcome/controller/welcome_binding.dart';
 import 'package:pomodoro_app/general-ms/welcome/view/welcome_screen.dart';
+import 'package:pomodoro_app/user-ms/user_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +17,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         initialBinding: WelcomeBinding(),
         initialRoute: WelcomeScreen.routeName,
-        getPages: GeneralRoutes.routes);
+        getPages: GeneralRoutes.routes + UserRoutes.routes);
   }
 }
