@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/view/pomodoro_screen.dart';
+import 'package:pomodoro_app/user-ms/statistics/view/statistic_screen.dart';
 
 class BottomNavController extends GetxController {
   var selectedIndex = 0.obs;
@@ -15,7 +16,7 @@ class BottomNavController extends GetxController {
         Get.offAllNamed(HomeScreen.routeName);
         break;
       case 2:
-        Get.offAllNamed('/sign-up');
+        Get.offAllNamed(StatisticScreen.routeName);
         break;
     }
   }
