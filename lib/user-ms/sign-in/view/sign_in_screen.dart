@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/common/components/common_text_form_field.dart';
@@ -20,15 +21,19 @@ class SignInScreen extends StatelessWidget {
               "Log in",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 24.0),
+            Padding(
+              padding: const EdgeInsets.only(top: 24.0),
               child: CommonTextFormField(
-                  text: "Email Address", hintText: "example@example.com"),
+                  controller: TextEditingController(),
+                  text: "Email Address",
+                  hintText: "example@example.com"),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 24.0),
-              child:
-                  CommonTextFormField(text: "PASSWORD", hintText: "*********"),
+            Padding(
+              padding: const EdgeInsets.only(top: 24.0),
+              child: CommonTextFormField(
+                  controller: TextEditingController(),
+                  text: "PASSWORD",
+                  hintText: "*********"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),

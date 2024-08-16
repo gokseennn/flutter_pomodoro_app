@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CommonTextFormField extends StatelessWidget {
-  const CommonTextFormField({super.key, this.text, this.hintText});
+  const CommonTextFormField(
+      {super.key, this.text, this.hintText, required this.controller});
   final String? text;
   final String? hintText;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,6 +21,7 @@ class CommonTextFormField extends StatelessWidget {
             ),
           ),
         TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: const TextStyle(

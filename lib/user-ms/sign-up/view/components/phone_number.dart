@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PhoneNumber extends StatelessWidget {
-  const PhoneNumber({super.key});
-
+  const PhoneNumber({super.key, required this.phoneNumberController});
+  final TextEditingController phoneNumberController;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,7 +46,7 @@ class PhoneNumber extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.only(right: 8),
                   child: DropdownButtonFormField<String>(
-                    value: '+1',
+                    value: '+90',
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(vertical: 8),
                       enabledBorder: UnderlineInputBorder(
@@ -64,7 +64,7 @@ class PhoneNumber extends StatelessWidget {
                     onChanged: (String? newValue) {
                       // Handle dropdown change
                     },
-                    items: <String>['+1']
+                    items: <String>['+90']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -78,8 +78,9 @@ class PhoneNumber extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: TextFormField(
-                  initialValue: '111 555 999',
+                  controller: phoneNumberController,
                   decoration: InputDecoration(
+                    hintText: '532 123 12 12',
                     contentPadding: const EdgeInsets.symmetric(vertical: 8),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey[600]!),

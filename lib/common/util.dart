@@ -1,4 +1,6 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 mixin FuturizeHelper on GetxController, StateMixin {
   Future<T?> futurize<T>(Future<T?> Function() futureFunction) {
@@ -12,4 +14,9 @@ mixin FuturizeHelper on GetxController, StateMixin {
       return null;
     });
   }
+}
+
+extension ResponseExtension on Response {
+  bool get isOk =>
+      statusCode != null && statusCode! >= 200 && statusCode! <= 299;
 }

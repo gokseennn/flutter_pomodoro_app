@@ -27,28 +27,33 @@ class SignUpScreen extends StatelessWidget {
                     "Sign up",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 42),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 24.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
                     child: CommonTextFormField(
+                      controller: controller.emailController,
                       text: "Email Address",
                       hintText: "example@examaple.com",
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 24.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
                     child: CommonTextFormField(
+                      controller: controller.passwordController,
                       text: "PASSWORD",
                       hintText: "***********",
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 24.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
                     child: CommonTextFormField(
+                      controller: controller.repeatPasswordController,
                       text: "REPEAT PASSWORD",
                       hintText: "***********",
                     ),
                   ),
-                  const PhoneNumber(),
+                  PhoneNumber(
+                    phoneNumberController: controller.phoneNumberController,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
                     child: Align(
@@ -62,7 +67,7 @@ class SignUpScreen extends StatelessWidget {
                                       Colors.white.withOpacity(0.1)),
                                   backgroundColor:
                                       WidgetStateProperty.all(Colors.black)),
-                              onPressed: () {},
+                              onPressed: controller.signUp,
                               icon: const Icon(
                                 Icons.arrow_forward,
                                 color: Colors.white,
