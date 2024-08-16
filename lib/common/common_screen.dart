@@ -11,9 +11,10 @@ class CommonScreen<T> extends GetView<T> {
   final CrossAxisAlignment crossAxisAlignment;
   final String? title;
   final bool showIcon;
-
+  final bool showNavBar;
   const CommonScreen(
       {super.key,
+      this.showNavBar = true,
       required this.body,
       this.appBar,
       this.showIcon = false,
@@ -55,6 +56,6 @@ class CommonScreen<T> extends GetView<T> {
             );
           },
         ),
-        bottomNavigationBar: const BottomNavBar());
+        bottomNavigationBar: showNavBar ? const BottomNavBar() : null);
   }
 }

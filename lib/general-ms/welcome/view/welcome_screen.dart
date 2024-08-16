@@ -10,6 +10,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonScreen<WelcomeController>(
+        showNavBar: false,
         showAppbar: false,
         body: (controller) {
           return [

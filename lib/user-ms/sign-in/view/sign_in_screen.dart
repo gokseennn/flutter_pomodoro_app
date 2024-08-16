@@ -12,6 +12,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonScreen<SignInController>(
+        showNavBar: false,
         showIcon: true,
         body: (controller) {
           return [
