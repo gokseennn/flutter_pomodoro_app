@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/user-ms/statistics/controller/statistic_controller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class StatisticScreen extends StatelessWidget {
   const StatisticScreen({super.key});
