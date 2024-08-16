@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_controller.dart';
 
 class FocusAndBreak extends StatelessWidget {
   const FocusAndBreak({super.key, required this.controller});
-  final HomeController controller;
+  final PomodoroController controller;
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pomodoro_app/common/util.dart';
-import 'package:pomodoro_app/general-ms/home/view/components/circular_timer.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
 
-class HomeController extends GetxController
+class PomodoroController extends GetxController
     with GetSingleTickerProviderStateMixin, StateMixin, FuturizeHelper {
   var isFocusSelected = true.obs;
   var isFocus = true.obs;

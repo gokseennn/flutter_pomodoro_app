@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_controller.dart';
 
 class CircularTimer extends StatelessWidget {
   final int initialDuration;
   final VoidCallback? onComplete;
-  final HomeController controller;
+  final PomodoroController controller;
   const CircularTimer(
       {super.key,
       required this.initialDuration,

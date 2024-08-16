@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
-import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
-import 'package:pomodoro_app/general-ms/home/view/components/circular_timer.dart';
-import 'package:pomodoro_app/general-ms/home/view/components/focus_break.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_controller.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
+import 'package:pomodoro_app/general-ms/pomodoro/view/components/focus_break.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class PomodoroScreen extends StatelessWidget {
+  const PomodoroScreen({super.key});
   static const String routeName = '/home';
   @override
   Widget build(BuildContext context) {
-    return CommonScreen<HomeController>(
+    return CommonScreen<PomodoroController>(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         body: (controller) {
