@@ -7,30 +7,14 @@ class ApiError {
   ApiError({required this.code, required this.message});
 
   factory ApiError.fromDioException(DioException e) {
-    // exception verisini alın
-    final exception =
-        e.response?.data['errors']['messages'] ?? e.response?.data?['errors'];
+    final errors = e.response?.data['errors'];
+    String errorMessage = e.response?.statusMessage ?? '';
 
-    // Başlangıçta hata mesajını boş bir string olarak ayarlayın
-    String errorMessage = '';
-
-    // exception verisini kontrol edin ve uygun şekilde işleyin
-    if (exception is List) {
-      // Eğer exception bir Listeyse ve mesajları içeriyorsa ilk elemanı al
-      errorMessage = exception.first.toString();
-    } else if (exception is Map) {
-      // Eğer exception bir Map ise ve "message" anahtarına sahipse işle
-      if (exception['message'] is List) {
-        errorMessage = (exception['message'] as List).first.toString();
-      } else if (exception['message'] is String) {
-        errorMessage = exception['message'];
+    if (errors != null && errors is List && errors.isNotEmpty) {
+      final firstError = errors.first;
+      if (firstError['messages'] is List && firstError['messages'].isNotEmpty) {
+        errorMessage = firstError['messages'].first.toString();
       }
-    } else if (exception is String) {
-      // Eğer exception direk bir string ise bunu mesaj olarak ayarla
-      errorMessage = exception;
-    } else {
-      // Hiçbir durumda değilse varsayılan hata mesajını kullan
-      errorMessage = e.response?.statusMessage ?? 'An unknown error occurred';
     }
 
     return ApiError(

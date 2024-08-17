@@ -78,6 +78,7 @@ class PhoneNumber extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: TextFormField(
+                  keyboardType: TextInputType.phone,
                   controller: phoneNumberController,
                   decoration: InputDecoration(
                     hintText: '532 123 12 12',

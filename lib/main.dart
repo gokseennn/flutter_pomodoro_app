@@ -17,7 +17,19 @@ void main() {
       loader: const ApiLoading(),
       onError: (error) {
         Get.dialog(
-          Text(error.toString()),
+          AlertDialog(
+            title: Text(error.message.toString()),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back(); // Dialogu kapatmak için
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+          barrierDismissible:
+              false, // Kullanıcıya dokunarak dialogu kapatmayı engelle
         );
       },
     ),
