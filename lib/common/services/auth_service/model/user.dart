@@ -21,4 +21,12 @@ class User {
       token: json['token'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'token': token,
+    };
+  }
 }

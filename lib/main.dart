@@ -4,12 +4,15 @@ import 'package:pomodoro_app/common/components/api_loading.dart';
 import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/api_provider_enum.dart';
 import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
+import 'package:pomodoro_app/common/services/storage_service/storage_service.dart';
 import 'package:pomodoro_app/general-ms/general_routes.dart';
 import 'package:pomodoro_app/general-ms/welcome/controller/welcome_binding.dart';
 import 'package:pomodoro_app/general-ms/welcome/view/welcome_screen.dart';
 import 'package:pomodoro_app/user-ms/user_routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Get.putAsync(() async => StorageService().init());
   Get.put(
     ApiService(
       provider: ApiProvider.dio,
