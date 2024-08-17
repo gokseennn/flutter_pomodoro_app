@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_app/common/formatter/email_formatter.dart';
 
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField({
@@ -33,7 +32,6 @@ class CommonTextFormField extends StatelessWidget {
           ),
         TextFormField(
           keyboardType: keyboardType,
-          inputFormatters: [EmailInputFormatter()],
           controller: controller,
           validator: validator, // Validator burada kullanılıyor
           decoration: InputDecoration(

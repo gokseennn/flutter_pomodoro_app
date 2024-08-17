@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
 
 class SignInController extends GetxController {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _authService = Get.find<AuthService>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -10,7 +12,9 @@ class SignInController extends GetxController {
   final isPasswordValid = true.obs;
 
   void signIn() async {
-    if (_formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate()) {
+      _authService.login(emailController.text, passwordController.text);
+    }
   }
 
   void validateEmail() {
