@@ -29,7 +29,6 @@ class AuthServiceRepository {
                   response.headers['authorization']?.map((e) => e).join('; ') ??
                       ''
             });
-            print(response.data);
             return User.fromJson(response.data['data']);
           }
           return null;

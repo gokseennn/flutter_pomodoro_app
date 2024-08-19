@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pomodoro_app/common/util.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
 

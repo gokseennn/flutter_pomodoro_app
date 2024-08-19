@@ -19,7 +19,6 @@ class AuthService extends GetxService {
     if (response == null) {
       _user.value = response;
       _storageService.write("user", jsonEncode(response!.toJson()));
-      print("Storage yazdı");
     }
 
     return user;
