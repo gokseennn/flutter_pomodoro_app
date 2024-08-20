@@ -13,6 +13,18 @@ class AuthService extends GetxService {
   User? get user => _user.value;
   set user(User? user) => _user.value = user;
 
+  void init() async {
+    var userJson = await _storageService.read("user");
+    if (userJson != null) {
+      print("user null değil");
+      user = User.fromJson(jsonDecode(userJson));
+    } else {
+      user = null;
+      print("user null");
+    }
+    super.onInit();
+  }
+
   Future<User?> login(String email, String password) async {
     var request = LoginRequestDto(password: password, email: email);
     var response = await _repository.login(request);
@@ -20,7 +32,6 @@ class AuthService extends GetxService {
       _user.value = response;
       _storageService.write("user", jsonEncode(response!.toJson()));
     }
-
     return user;
   }
 }
