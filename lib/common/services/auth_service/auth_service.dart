@@ -9,9 +9,11 @@ import 'package:pomodoro_app/common/services/storage_service/storage_service.dar
 class AuthService extends GetxService {
   final _storageService = Get.find<StorageService>();
   final _repository = Get.put(AuthServiceRepository());
+
   final _user = Rx<User?>(null);
   User? get user => _user.value;
   set user(User? user) => _user.value = user;
+  Stream<User?> get userChanges => _user.stream;
 
   void init() async {
     var userJson = await _storageService.read("user");
@@ -28,10 +30,10 @@ class AuthService extends GetxService {
   Future<User?> login(String email, String password) async {
     var request = LoginRequestDto(password: password, email: email);
     var response = await _repository.login(request);
-    if (response == null) {
+    if (response != null) {
       _user.value = response;
-      _storageService.write("user", jsonEncode(response!.toJson()));
+      _storageService.write("user", jsonEncode(response.toJson()));
     }
-    return user;
+    return response;
   }
 }

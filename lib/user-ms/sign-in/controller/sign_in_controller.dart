@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
+import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
 
 class SignInController extends GetxController {
   final _authService = Get.find<AuthService>();
@@ -13,16 +14,20 @@ class SignInController extends GetxController {
 
   void signIn() async {
     if (formKey.currentState!.validate()) {
-      _authService.login(emailController.text, passwordController.text);
+      await _authService.login(emailController.text, passwordController.text);
+      print(_authService.user);
+      if (_authService.user != null) {
+        Get.offAllNamed(HomeScreen.routeName);
+      }
     }
-  }
 
-  void validateEmail() {
-    final emailRegex = RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    isEmailValid.value = emailRegex.hasMatch(emailController.text);
-  }
+    void validateEmail() {
+      final emailRegex = RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+      isEmailValid.value = emailRegex.hasMatch(emailController.text);
+    }
 
-  void validatePassword() {
-    isPasswordValid.value = passwordController.text.length >= 8;
+    void validatePassword() {
+      isPasswordValid.value = passwordController.text.length >= 8;
+    }
   }
 }

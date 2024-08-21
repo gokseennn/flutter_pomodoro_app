@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
@@ -11,8 +12,10 @@ import 'package:pomodoro_app/common/services/api_service/model/http_interceptor.
 import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.dart';
 import 'package:pomodoro_app/common/services/api_service/model/response_type_enum.dart';
 import 'package:pomodoro_app/common/services/api_service/providers/dio_api_provider.dart';
+import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
 
 class ApiService extends GetxService {
+  AuthService? _authService;
   late final IApiProvider _apiProvider;
   late final Function(ApiError error)? _onError;
   late final Widget? _loader;
@@ -29,6 +32,7 @@ class ApiService extends GetxService {
   }) {
     _loader = loader;
     _onError = onError;
+
     switch (provider) {
       case ApiProvider.dio:
         _apiProvider = DioApiProvider(
@@ -53,6 +57,10 @@ class ApiService extends GetxService {
     bool showLoader = false,
     bool showError = true,
   }) async {
+    _initializeAuthService();
+    if (_authService != null && headers == null) {
+      headers = ({"Authorization": _authService!.user!.token});
+    }
     if (showLoader) {
       _showLoaderProcess.value++;
     }
@@ -98,6 +106,14 @@ class ApiService extends GetxService {
       }
     }
     return null;
+  }
+
+  void _initializeAuthService() {
+    try {
+      _authService = Get.find<AuthService>();
+    } catch (e) {
+      _authService = null;
+    }
   }
 
   void addInterceptor(HttpInterceptor interceptor) {

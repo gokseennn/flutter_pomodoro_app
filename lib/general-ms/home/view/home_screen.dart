@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
+import 'package:pomodoro_app/general-ms/home/view/components/add_task.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -51,22 +53,25 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'ADD/EDIT',
-                          style:
-                              TextStyle(color: Colors.grey[500], fontSize: 12),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          'HABIT',
-                          style:
-                              TextStyle(color: Colors.grey[500], fontSize: 12),
-                        ),
-                      ],
+                  InkWell(
+                    onTap: controller.addNewHabit,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'ADD/EDIT',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontSize: 12),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'HABIT',
+                            style: TextStyle(
+                                color: Colors.grey[500], fontSize: 12),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 40),
@@ -78,15 +83,24 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Icon(Icons.add, color: Colors.grey[400]),
-                      const SizedBox(width: 8),
-                      Text(
-                        'ADD A TASK',
-                        style: TextStyle(color: Colors.grey[500], fontSize: 14),
-                      ),
-                    ],
+                  InkWell(
+                    onTap: () {
+                      Get.dialog(AddTask(
+                        controller: controller,
+                      ));
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.add, color: Colors.grey[400]),
+                        const SizedBox(width: 8),
+                        Text(
+                          'ADD A TASK',
+                          style:
+                              TextStyle(color: Colors.grey[500], fontSize: 14),
+                        ),
+                      ],
+                    ),
                   ),
                   _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
                   _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),

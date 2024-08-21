@@ -41,6 +41,7 @@ void main() async {
     permanent: true,
   );
   Get.put(AuthService(), permanent: true).init();
+
   runApp(MyApp());
 }
 
