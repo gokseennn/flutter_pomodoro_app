@@ -3,6 +3,7 @@ import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.dart';
 import 'package:pomodoro_app/common/util.dart';
 import 'package:pomodoro_app/general-ms/home/model/add_task_dto.dart';
+import 'package:pomodoro_app/general-ms/home/model/task.dart';
 
 class HomeRepository {
   final _apiService = Get.find<ApiService>();
@@ -15,5 +16,16 @@ class HomeRepository {
               data: task.toJson())
           .then((response) {
         return response?.isOk ?? false;
+      });
+
+  Future<List<Task?>> getAlltask() => _apiService
+          .request(
+              path: "http://localhost:5111/api/Task", method: HttpMethod.get)
+          .then((response) {
+        if (response?.isOk ?? false) {
+          var data = response!.data['data'] as List<dynamic>;
+          return data.map((json) => Task.fromJson(json)).toList();
+        }
+        return [];
       });
 }

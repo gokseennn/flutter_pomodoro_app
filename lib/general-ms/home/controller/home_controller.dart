@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/util.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_repository.dart';
 import 'package:pomodoro_app/general-ms/home/model/add_task_dto.dart';
+import 'package:pomodoro_app/general-ms/home/model/task.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with StateMixin, FuturizeHelper {
   final _repository = Get.find<HomeRepository>();
-
+  late final Rx<List<Task>> taskList;
   final TextEditingController taskTextEditingController =
       TextEditingController();
 
   final Rx<DateTime> selectedDateTime = DateTime.now().obs;
+
+  @override
+  void onInit() async {
+    await futurize(() => initcontroller());
+    super.onInit();
+  }
+
+  Future<bool> initcontroller() async {
+    var tasks = await _repository.getAlltask();
+    if (tasks.isNotEmpty) {
+      taskList.value =
+          tasks.where((task) => task != null).cast<Task>().toList();
+    } else {
+      taskList.value = [];
+    }
+    return true;
+  }
 
   void updateDateTime(DateTime newDateTime) {
     selectedDateTime.value = newDateTime;
