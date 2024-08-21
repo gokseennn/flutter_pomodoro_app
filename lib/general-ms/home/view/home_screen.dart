@@ -28,7 +28,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-
                   SizedBox(
                     height: 100, // Set a fixed height for the horizontal list
                     child: ListView.builder(
@@ -102,37 +101,36 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.taskList.value.length,
+                      itemBuilder: (context, index) {
+                        return _buildEventItem(
+                            controller.taskList.value[index].title,
+                            controller.taskList.value[index].dueDate,
+                            controller.taskList.value[index].isComplate);
+                      }),
                   const SizedBox(height: 40),
                   const Text(
-                    'Upcoming this week',
+                    'Complated Task',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Icon(Icons.add, color: Colors.grey[400]),
-                      const SizedBox(width: 8),
-                      Text(
-                        'ADD AN EVENT',
-                        style: TextStyle(color: Colors.grey[500], fontSize: 14),
-                      ),
-                    ],
-                  ),
-                  // Simulated events for demonstration
-                  const SizedBox(height: 16),
-                  _buildEventItem('Team Meeting', 'Monday, 10:00 AM'),
-                  _buildEventItem('Project Deadline', 'Wednesday, 5:00 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.complatedTaskList.value.length,
+                      itemBuilder: (context, index) {
+                        return _buildEventItem(
+                            controller.complatedTaskList.value[index].title,
+                            controller.complatedTaskList.value[index].dueDate,
+                            controller
+                                .complatedTaskList.value[index].isComplate);
+                      }),
                 ],
               ),
             ),
@@ -142,13 +140,12 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildEventItem(String title, String datetime) {
+  Widget _buildEventItem(String title, String datetime, bool isCompleted) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(Icons.event, color: Colors.blue[300]),
-          const SizedBox(width: 16),
+          Checkbox(value: isCompleted, onChanged: (value) {}),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

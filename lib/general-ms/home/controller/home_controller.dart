@@ -9,6 +9,7 @@ class HomeController extends BaseController {
   final _repository = Get.find<HomeRepository>();
   final Rx<List<Task>> taskList =
       Rx<List<Task>>([]); // Başlangıçta boş bir liste
+  final Rx<List<Task>> complatedTaskList = Rx<List<Task>>([]);
   final TextEditingController taskTextEditingController =
       TextEditingController();
 
@@ -18,8 +19,15 @@ class HomeController extends BaseController {
   Future<void> initController() async {
     var tasks = await _repository.getAlltask();
     if (tasks.isNotEmpty) {
-      taskList.value =
-          tasks.where((task) => task != null).cast<Task>().toList();
+      taskList.value = tasks
+          .where((task) => task != null && task.isComplate == false)
+          .cast<Task>()
+          .toList();
+      taskList.value = taskList.value.reversed.toList();
+      complatedTaskList.value = tasks
+          .where((task) => task != null && task.isComplate == true)
+          .cast<Task>()
+          .toList();
     } else {
       taskList.value = [];
     }
@@ -75,6 +83,9 @@ class HomeController extends BaseController {
       title: taskTextEditingController.text,
       datetime: selectedDateTime.value,
     ));
-    print(response == true ? "Task added successfully" : "Task failed to add");
+    if (response == true) {
+      initController();
+    }
+    Get.back();
   }
 }
