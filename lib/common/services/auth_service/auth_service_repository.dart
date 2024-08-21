@@ -26,7 +26,7 @@ class AuthServiceRepository {
           if (response?.isOk ?? false) {
             response!.data["data"].addAll({
               'token':
-                  response.headers['authorization']?.map((e) => e).join('; ') ??
+                  response.headers['Authorization']?.map((e) => e).join('; ') ??
                       ''
             });
             return User.fromJson(response.data['data']);

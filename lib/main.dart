@@ -28,14 +28,13 @@ void main() async {
             actions: [
               TextButton(
                 onPressed: () {
-                  Get.back(); // Dialogu kapatmak için
+                  Get.back();
                 },
                 child: const Text('OK'),
               ),
             ],
           ),
-          barrierDismissible:
-              false, // Kullanıcıya dokunarak dialogu kapatmayı engelle
+          barrierDismissible: false,
         );
       },
     ),
