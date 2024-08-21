@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: controller.taskList.value.length,
                       itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.only(right: 16),
                         child: Container(

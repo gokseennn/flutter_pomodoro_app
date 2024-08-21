@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pomodoro_app/common/util.dart';
+import 'package:pomodoro_app/common/controller/base_controller.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_repository.dart';
 import 'package:pomodoro_app/general-ms/home/model/add_task_dto.dart';
 import 'package:pomodoro_app/general-ms/home/model/task.dart';
 
-class HomeController extends GetxController with StateMixin, FuturizeHelper {
+class HomeController extends BaseController {
   final _repository = Get.find<HomeRepository>();
-  late final Rx<List<Task>> taskList;
+  final Rx<List<Task>> taskList =
+      Rx<List<Task>>([]); // Başlangıçta boş bir liste
   final TextEditingController taskTextEditingController =
       TextEditingController();
 
   final Rx<DateTime> selectedDateTime = DateTime.now().obs;
 
   @override
-  void onInit() async {
-    await futurize(() => initcontroller());
-    super.onInit();
-  }
-
-  Future<bool> initcontroller() async {
+  Future<void> initController() async {
     var tasks = await _repository.getAlltask();
     if (tasks.isNotEmpty) {
       taskList.value =
@@ -27,7 +23,6 @@ class HomeController extends GetxController with StateMixin, FuturizeHelper {
     } else {
       taskList.value = [];
     }
-    return true;
   }
 
   void updateDateTime(DateTime newDateTime) {

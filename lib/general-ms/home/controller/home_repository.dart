@@ -23,8 +23,21 @@ class HomeRepository {
               path: "http://localhost:5111/api/Task", method: HttpMethod.get)
           .then((response) {
         if (response?.isOk ?? false) {
-          var data = response!.data['data'] as List<dynamic>;
-          return data.map((json) => Task.fromJson(json)).toList();
+          try {
+            // 'data' anahtarını kontrol ederek listeyi alıyoruz
+            var data = response!.data as List<dynamic>;
+            return data.map((json) {
+              // Her bir elemanı Task modeline dönüştürüyoruz
+              if (json is Map<String, dynamic>) {
+                return Task.fromJson(json);
+              } else {
+                return null;
+              }
+            }).toList();
+          } catch (e) {
+            print("JSON parsing error: $e");
+            return [];
+          }
         }
         return [];
       });

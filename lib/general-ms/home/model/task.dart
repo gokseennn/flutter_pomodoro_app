@@ -15,7 +15,7 @@ class Task {
       id: json['id'],
       title: json['title'],
       dueDate: json['dueDate'],
-      isComplate: json['isComplate'],
+      isComplate: json['isCompleted'],
     );
   }
 }

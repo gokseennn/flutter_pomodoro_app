@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:pomodoro_app/common/util.dart';
+import 'package:pomodoro_app/common/controller/base_controller.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
 
-class PomodoroController extends GetxController
-    with GetSingleTickerProviderStateMixin, StateMixin, FuturizeHelper {
+class PomodoroController extends BaseController {
   var isFocusSelected = true.obs;
   var isFocus = true.obs;
 
@@ -27,6 +26,7 @@ class PomodoroController extends GetxController
     timer.value = 3600;
   }
 
+  @override
   Future<dynamic> initController() async {
     return true;
   }

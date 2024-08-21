@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/controller/base_controller.dart';
 import 'package:pomodoro_app/user-ms/sign-up/controller/sign_up_repository.dart';
 import 'package:pomodoro_app/user-ms/sign-up/model/sign_in_dto.dart';
 
-class SignUpController extends GetxController {
+class SignUpController extends BaseController {
   final _repository = Get.find<SignUpRepository>();
   final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();

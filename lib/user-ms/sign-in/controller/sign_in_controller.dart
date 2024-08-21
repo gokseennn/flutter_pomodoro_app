@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/controller/base_controller.dart';
 import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
 import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
 
-class SignInController extends GetxController {
+class SignInController extends BaseController {
   final _authService = Get.find<AuthService>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
