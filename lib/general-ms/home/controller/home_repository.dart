@@ -4,6 +4,7 @@ import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.
 import 'package:pomodoro_app/common/util.dart';
 import 'package:pomodoro_app/general-ms/home/model/add_task_dto.dart';
 import 'package:pomodoro_app/general-ms/home/model/task.dart';
+import 'package:pomodoro_app/general-ms/home/model/upgrade_task_dto.dart';
 
 class HomeRepository {
   final _apiService = Get.find<ApiService>();
@@ -40,5 +41,16 @@ class HomeRepository {
           }
         }
         return [];
+      });
+  Future<bool> toggleTaskStatus(UpgradeTaskDto task) => _apiService
+          .request(
+        path: "http://localhost:5111/api/Task",
+        method: HttpMethod.put,
+        data: task.toJson(),
+        showError: true,
+        showLoader: true,
+      )
+          .then((response) {
+        return response?.isOk ?? false;
       });
 }

@@ -4,6 +4,7 @@ import 'package:pomodoro_app/common/controller/base_controller.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_repository.dart';
 import 'package:pomodoro_app/general-ms/home/model/add_task_dto.dart';
 import 'package:pomodoro_app/general-ms/home/model/task.dart';
+import 'package:pomodoro_app/general-ms/home/model/upgrade_task_dto.dart';
 
 class HomeController extends BaseController {
   final _repository = Get.find<HomeRepository>();
@@ -87,5 +88,14 @@ class HomeController extends BaseController {
       initController();
     }
     Get.back();
+  }
+
+  void toogleTaskStatus(Task dto) async {
+    print(!dto.isComplate);
+    var response = await _repository.toggleTaskStatus(
+        UpgradeTaskDto(id: dto.id, isComplate: !dto.isComplate));
+    if (response == true) {
+      await initController();
+    }
   }
 }

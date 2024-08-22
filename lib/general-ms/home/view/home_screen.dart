@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
+import 'package:pomodoro_app/general-ms/home/model/task.dart';
 import 'package:pomodoro_app/general-ms/home/view/components/add_task.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -107,9 +108,7 @@ class HomeScreen extends StatelessWidget {
                       itemCount: controller.taskList.value.length,
                       itemBuilder: (context, index) {
                         return _buildEventItem(
-                            controller.taskList.value[index].title,
-                            controller.taskList.value[index].dueDate,
-                            controller.taskList.value[index].isComplate);
+                            controller.taskList.value[index], controller);
                       }),
                   const SizedBox(height: 40),
                   const Text(
@@ -126,10 +125,8 @@ class HomeScreen extends StatelessWidget {
                       itemCount: controller.complatedTaskList.value.length,
                       itemBuilder: (context, index) {
                         return _buildEventItem(
-                            controller.complatedTaskList.value[index].title,
-                            controller.complatedTaskList.value[index].dueDate,
-                            controller
-                                .complatedTaskList.value[index].isComplate);
+                            controller.complatedTaskList.value[index],
+                            controller);
                       }),
                 ],
               ),
@@ -140,24 +137,46 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildEventItem(String title, String datetime, bool isCompleted) {
+  Widget _buildEventItem(Task task, HomeController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Checkbox(value: isCompleted, onChanged: (value) {}),
+          Row(children: [
+            InkWell(
+              onTap: () => controller.toogleTaskStatus(task),
+              child: Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.grey, width: 2),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                          task.isComplate ? Colors.black : Colors.transparent,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ]),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                task.title,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                datetime,
+                task.dueDate,
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
