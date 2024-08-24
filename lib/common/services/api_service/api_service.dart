@@ -58,7 +58,7 @@ class ApiService extends GetxService {
     bool showError = true,
   }) async {
     _initializeAuthService();
-    if (_authService != null && headers == null) {
+    if (_authService != null && headers == null && _authService!.user != null) {
       headers = ({"Authorization": _authService!.user!.token});
     }
     if (showLoader) {

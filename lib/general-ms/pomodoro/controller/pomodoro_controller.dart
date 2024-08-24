@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/controller/base_controller.dart';
-import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
 
 class PomodoroController extends BaseController {
   var isFocusSelected = true.obs;
@@ -23,7 +22,7 @@ class PomodoroController extends BaseController {
   }
 
   void reset() {
-    timer.value = 3600;
+    timer.value = 10;
   }
 
   @override
@@ -55,7 +54,6 @@ class PomodoroController extends BaseController {
       } else {
         _timer.cancel();
         isRunning.value = false;
-        Get.find<CircularTimer>().onComplete?.call();
       }
     });
   }

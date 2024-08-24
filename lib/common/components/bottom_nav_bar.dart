@@ -10,6 +10,9 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavController navController =
         Get.put<BottomNavController>(BottomNavController(), permanent: true);
+    if (Get.currentRoute == '/home') {
+      navController.selectedIndex.value = 1;
+    }
     return Container(
       decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Colors.black, width: 1))),
