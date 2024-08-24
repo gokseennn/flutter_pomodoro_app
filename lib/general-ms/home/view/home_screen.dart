@@ -102,14 +102,16 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.taskList.value.length,
-                      itemBuilder: (context, index) {
-                        return _buildEventItem(
-                            controller.taskList.value[index], controller);
-                      }),
+                  Obx(
+                    () => ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.taskList.value.length,
+                        itemBuilder: (context, index) {
+                          return _buildEventItem(
+                              controller.taskList.value[index], controller);
+                        }),
+                  ),
                   const SizedBox(height: 40),
                   const Text(
                     'Complated Task',
@@ -140,51 +142,67 @@ class HomeScreen extends StatelessWidget {
   Widget _buildEventItem(Task task, HomeController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Row(children: [
-            InkWell(
-              onTap: () => controller.toogleTaskStatus(task),
-              child: Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey, width: 2),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:
-                          task.isComplate ? Colors.black : Colors.transparent,
+      child: Dismissible(
+        key: Key(task.id.toString()),
+        direction: DismissDirection.endToStart,
+        onDismissed: (direction) async {
+          await controller.deleteTask(task);
+        },
+        background: Container(
+          color: Colors.red,
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: const Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+        ),
+        child: Row(
+          children: [
+            Row(children: [
+              InkWell(
+                onTap: () => controller.toogleTaskStatus(task),
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.grey, width: 2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color:
+                            task.isComplate ? Colors.black : Colors.transparent,
+                      ),
                     ),
                   ),
                 ),
               ),
+            ]),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  task.title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  task.dueDate,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
             ),
-          ]),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                task.title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                task.dueDate,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

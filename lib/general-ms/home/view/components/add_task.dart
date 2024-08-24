@@ -86,7 +86,7 @@ class AddTask extends StatelessWidget {
                 const SizedBox(width: 16.0),
                 ElevatedButton(
                   onPressed: () async {
-                    controller.addNewHabit(); // Add new habit logic here
+                    await controller.addNewHabit(); // Add new habit logic here
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.blue,

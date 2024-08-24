@@ -79,21 +79,28 @@ class HomeController extends BaseController {
     });
   }
 
-  void addNewHabit() async {
+  Future<void> addNewHabit() async {
     var response = await _repository.addTask(AddTaskDto(
       title: taskTextEditingController.text,
       datetime: selectedDateTime.value,
     ));
     if (response == true) {
-      initController();
+      await initController();
+      update();
     }
     Get.back();
   }
 
   void toogleTaskStatus(Task dto) async {
-    print(!dto.isComplate);
     var response = await _repository.toggleTaskStatus(
         UpgradeTaskDto(id: dto.id, isComplate: !dto.isComplate));
+    if (response == true) {
+      await initController();
+    }
+  }
+
+  Future<void> deleteTask(Task dto) async {
+    var response = await _repository.deleteTask(dto.id);
     if (response == true) {
       await initController();
     }

@@ -53,4 +53,13 @@ class HomeRepository {
           .then((response) {
         return response?.isOk ?? false;
       });
+  Future<bool> deleteTask(int id) => _apiService
+          .request(
+              path: "http://localhost:5111/api/Task/$id",
+              method: HttpMethod.delete,
+              showError: true,
+              showLoader: true)
+          .then((response) {
+        return response?.isOk ?? false;
+      });
 }
