@@ -18,11 +18,9 @@ class AuthService extends GetxService {
   void init() async {
     var userJson = await _storageService.read("user");
     if (userJson != null) {
-      print("user null değil");
       user = User.fromJson(jsonDecode(userJson));
     } else {
       user = null;
-      print("user null");
     }
     super.onInit();
   }

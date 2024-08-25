@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        defaultTransition: Transition.noTransition,
         initialBinding:
             _authService.user == null ? WelcomeBinding() : HomeBinding(),
         initialRoute: _authService.user == null

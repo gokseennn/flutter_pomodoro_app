@@ -16,19 +16,9 @@ class SignInController extends BaseController {
   void signIn() async {
     if (formKey.currentState!.validate()) {
       await _authService.login(emailController.text, passwordController.text);
-      print(_authService.user);
       if (_authService.user != null) {
         Get.offAllNamed(HomeScreen.routeName);
       }
-    }
-
-    void validateEmail() {
-      final emailRegex = RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-      isEmailValid.value = emailRegex.hasMatch(emailController.text);
-    }
-
-    void validatePassword() {
-      isPasswordValid.value = passwordController.text.length >= 8;
     }
   }
 }

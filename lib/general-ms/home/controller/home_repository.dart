@@ -36,7 +36,6 @@ class HomeRepository {
               }
             }).toList();
           } catch (e) {
-            print("JSON parsing error: $e");
             return [];
           }
         }

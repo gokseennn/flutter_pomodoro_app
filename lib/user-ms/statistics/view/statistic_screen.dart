@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/user-ms/statistics/controller/statistic_controller.dart';
+import 'package:pomodoro_app/user-ms/statistics/model/chart_data.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class StatisticScreen extends StatelessWidget {
@@ -8,16 +9,6 @@ class StatisticScreen extends StatelessWidget {
   static const String routeName = '/statistic';
   @override
   Widget build(BuildContext context) {
-    final List<_ChartData> data = [
-      _ChartData('M', 80, Colors.black),
-      _ChartData('T', 60, Colors.grey[600]!),
-      _ChartData('W', 40, Colors.grey[500]!),
-      _ChartData('T', 70, Colors.grey[400]!),
-      _ChartData('F', 90, Colors.grey[300]!),
-      _ChartData('S', 50, Colors.grey[400]!),
-      _ChartData('S', 30, Colors.grey[500]!),
-    ];
-
     return CommonScreen<StatisticController>(
         showIcon: true,
         body: (controller) {
@@ -66,7 +57,6 @@ class StatisticScreen extends StatelessWidget {
                       ),
                       primaryYAxis: NumericAxis(
                         minimum: 0,
-                        maximum: 100,
                         interval: 10,
 
                         majorGridLines: const MajorGridLines(width: 0),
@@ -78,11 +68,11 @@ class StatisticScreen extends StatelessWidget {
                         ),
                       ),
                       series: <CartesianSeries<dynamic, String>>[
-                        ColumnSeries<_ChartData, String>(
-                          dataSource: data,
-                          xValueMapper: (_ChartData data, _) => data.day,
-                          yValueMapper: (_ChartData data, _) => data.value,
-                          pointColorMapper: (_ChartData data, _) => data.color,
+                        ColumnSeries<ChartData, String>(
+                          dataSource: controller.data,
+                          xValueMapper: (ChartData data, _) => data.day,
+                          yValueMapper: (ChartData data, _) => data.value,
+                          pointColorMapper: (ChartData data, _) => data.color,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
                           width: 0.5,
@@ -137,11 +127,4 @@ class StatisticScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class _ChartData {
-  _ChartData(this.day, this.value, this.color);
-  final String day;
-  final double value;
-  final Color color;
 }
