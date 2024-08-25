@@ -17,7 +17,6 @@ class CircularTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.initialize(initialDuration);
-
     return Obx(() => SizedBox(
           width: 300,
           height: 300,
@@ -77,7 +76,7 @@ class CircularTimer extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => controller.selectedWorkTime(context),
                   icon: Icon(Icons.settings, color: Colors.grey[400], size: 24),
                 ),
               ),
