@@ -25,16 +25,9 @@ class HomeRepository {
           .then((response) {
         if (response?.isOk ?? false) {
           try {
-            // 'data' anahtarını kontrol ederek listeyi alıyoruz
-            var data = response!.data as List<dynamic>;
-            return data.map((json) {
-              // Her bir elemanı Task modeline dönüştürüyoruz
-              if (json is Map<String, dynamic>) {
-                return Task.fromJson(json);
-              } else {
-                return null;
-              }
-            }).toList();
+            return (response?.data["data"])
+                .map((e) => Task.fromJson(e))
+                .toList();
           } catch (e) {
             return [];
           }

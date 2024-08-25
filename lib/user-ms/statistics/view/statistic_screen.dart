@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/user-ms/statistics/controller/statistic_controller.dart';
 import 'package:pomodoro_app/user-ms/statistics/model/chart_data.dart';
@@ -51,34 +52,36 @@ class StatisticScreen extends StatelessWidget {
                             fontSize: 14,
                             color: Colors.grey[700],
                             fontWeight: FontWeight.bold)),
-                    SfCartesianChart(
-                      primaryXAxis: const CategoryAxis(
-                        majorGridLines: MajorGridLines(width: 0),
-                      ),
-                      primaryYAxis: NumericAxis(
-                        minimum: 0,
-                        interval: 10,
-
-                        majorGridLines: const MajorGridLines(width: 0),
-                        labelFormat:
-                            '{value}h', // Y eksenine saat formatında etiketler ekler.
-                        labelStyle: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[700],
+                    Obx(
+                      () => SfCartesianChart(
+                        primaryXAxis: const CategoryAxis(
+                          majorGridLines: MajorGridLines(width: 0),
                         ),
+                        primaryYAxis: NumericAxis(
+                          minimum: 0,
+                          interval: 10,
+
+                          majorGridLines: const MajorGridLines(width: 0),
+                          labelFormat:
+                              '{value}M', // Y eksenine saat formatında etiketler ekler.
+                          labelStyle: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                        series: <CartesianSeries<dynamic, String>>[
+                          ColumnSeries<ChartData, String>(
+                            dataSource: controller.data.value,
+                            xValueMapper: (ChartData data, _) => data.day,
+                            yValueMapper: (ChartData data, _) => data.value,
+                            pointColorMapper: (ChartData data, _) => data.color,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            width: 0.5,
+                            spacing: 0.2,
+                          )
+                        ],
                       ),
-                      series: <CartesianSeries<dynamic, String>>[
-                        ColumnSeries<ChartData, String>(
-                          dataSource: controller.data,
-                          xValueMapper: (ChartData data, _) => data.day,
-                          yValueMapper: (ChartData data, _) => data.value,
-                          pointColorMapper: (ChartData data, _) => data.color,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          width: 0.5,
-                          spacing: 0.2,
-                        )
-                      ],
                     ),
                     _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
                     _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
