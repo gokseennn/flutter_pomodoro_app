@@ -13,9 +13,7 @@ class StatisticController extends BaseController {
   @override
   Future<void> initController() async {
     await getDayStatistics();
-    print(data.value.map(
-      (e) => e.value,
-    ));
+
     return super.initController();
   }
 

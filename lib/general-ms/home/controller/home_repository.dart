@@ -18,17 +18,16 @@ class HomeRepository {
           .then((response) {
         return response?.isOk ?? false;
       });
-
-  Future<List<Task?>> getAlltask() => _apiService
+  Future<List<Task>> getAlltask() => _apiService
           .request(
               path: "http://localhost:5111/api/Task", method: HttpMethod.get)
           .then((response) {
         if (response?.isOk ?? false) {
-          try {
-            return (response?.data["data"])
-                .map((e) => Task.fromJson(e))
-                .toList();
-          } catch (e) {
+          final data = response?.data;
+          if (data is List) {
+            print("1");
+            return data.map((e) => Task.fromJson(e)).toList();
+          } else {
             return [];
           }
         }
