@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/common/components/common_text_form_field.dart';
 import 'package:pomodoro_app/user-ms/sign-in/controller/sign_in_controller.dart';
 import 'package:pomodoro_app/user-ms/sign-up/view/sign_up_screen.dart';
-
-class LowercaseTextFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    return TextEditingValue(
-      text: newValue.text.toLowerCase(),
-      selection: newValue.selection,
-    );
-  }
-}
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});

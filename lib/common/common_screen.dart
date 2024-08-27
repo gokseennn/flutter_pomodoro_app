@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/components/bottom_nav_bar.dart';
 import 'package:pomodoro_app/common/components/common_header.dart';
+import 'package:pomodoro_app/common/components/shimmer.dart';
 import 'package:pomodoro_app/common/controller/base_controller.dart';
 
 class CommonScreen<T extends BaseController> extends GetView<T> {
@@ -40,7 +41,7 @@ class CommonScreen<T extends BaseController> extends GetView<T> {
             )
           : null,
       body: Obx(() {
-        if (controller.status.value.isSuccess) {
+        if (!controller.status.value.isSuccess) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: SafeArea(
@@ -56,7 +57,7 @@ class CommonScreen<T extends BaseController> extends GetView<T> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return ShimmerList();
         }
       }),
       bottomNavigationBar: showNavBar ? const BottomNavBar() : null,

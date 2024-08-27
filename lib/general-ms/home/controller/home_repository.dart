@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/environment/environment.dart';
 import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.dart';
 import 'package:pomodoro_app/common/util.dart';
@@ -12,21 +13,21 @@ class HomeRepository {
           .request(
               showError: true,
               showLoader: true,
-              path: "http://localhost:5111/api/Task",
+              path: Environment.config.kTaskUrl,
               method: HttpMethod.post,
               data: task.toJson())
           .then((response) {
         return response?.isOk ?? false;
       });
   Future<List<Task>> getAlltask() => _apiService
-          .request(
-              path: "http://localhost:5111/api/Task", method: HttpMethod.get)
+          .request(path: Environment.config.kTaskUrl, method: HttpMethod.get)
           .then((response) {
         if (response?.isOk ?? false) {
           final data = response?.data;
-          if (data is List) {
-            print("1");
-            return data.map((e) => Task.fromJson(e)).toList();
+          if (data["data"] is List) {
+            final taskList =
+                (data["data"] as List).map((e) => Task.fromJson(e)).toList();
+            return taskList;
           } else {
             return [];
           }
@@ -35,7 +36,7 @@ class HomeRepository {
       });
   Future<bool> toggleTaskStatus(UpgradeTaskDto task) => _apiService
           .request(
-        path: "http://localhost:5111/api/Task",
+        path: Environment.config.kTaskUrl,
         method: HttpMethod.put,
         data: task.toJson(),
         showError: true,
@@ -46,7 +47,7 @@ class HomeRepository {
       });
   Future<bool> deleteTask(int id) => _apiService
           .request(
-              path: "http://localhost:5111/api/Task/$id",
+              path: "${Environment.config.kTaskUrl}/$id",
               method: HttpMethod.delete,
               showError: true,
               showLoader: true)

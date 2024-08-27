@@ -100,10 +100,7 @@ class SignUpScreen extends StatelessWidget {
                                     backgroundColor:
                                         WidgetStateProperty.all(Colors.black)),
                                 onPressed: () {
-                                  if (controller.formKey.currentState!
-                                      .validate()) {
-                                    controller.signUp();
-                                  }
+                                  controller.signUp();
                                 },
                                 icon: const Icon(
                                   Icons.arrow_forward,

@@ -31,6 +31,7 @@ class CommonTextFormField extends StatelessWidget {
             ),
           ),
         TextFormField(
+          textCapitalization: TextCapitalization.none,
           keyboardType: keyboardType,
           controller: controller,
           validator: validator, // Validator burada kullanılıyor

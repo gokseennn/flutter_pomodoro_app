@@ -18,7 +18,7 @@ class SignUpController extends BaseController {
 
   void signUp() async {
     if (formKey.currentState!.validate()) {
-      var response = await _repository.signIn(SignInDto(
+      var response = await _repository.signUp(SignInDto(
           email: emailController.text,
           password: passwordController.text,
           phoneNumber: phoneNumberController.text));

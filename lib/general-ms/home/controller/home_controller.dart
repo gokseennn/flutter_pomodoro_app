@@ -19,13 +19,16 @@ class HomeController extends BaseController {
   @override
   Future<void> initController() async {
     var tasks = await _repository.getAlltask();
+    print("5");
     if (tasks.isNotEmpty) {
+      print("3");
       taskList.value =
           tasks.where((task) => task.isComplate == false).cast<Task>().toList();
       taskList.value = taskList.value.reversed.toList();
       complatedTaskList.value =
           tasks.where((task) => task.isComplate == true).cast<Task>().toList();
     } else {
+      print("4");
       taskList.value = [];
     }
   }

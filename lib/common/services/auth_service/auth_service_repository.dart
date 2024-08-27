@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/environment/environment.dart';
 import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.dart';
 import 'package:pomodoro_app/common/services/auth_service/model/login_request_dto.dart';
@@ -16,7 +17,7 @@ class AuthServiceRepository {
       _apiService
           .request(
         method: HttpMethod.post,
-        path: 'http://localhost:5111/Account/login',
+        path: "${Environment.config.kAccountUrl}/login",
         data: dto?.toJson(),
         showLoader: showLoader,
         showError: showError,
