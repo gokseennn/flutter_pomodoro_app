@@ -15,8 +15,6 @@ class SignUpRepository {
               method: HttpMethod.post,
               data: dto.toJson())
           .then((response) {
-        print("123$response");
-        print(Environment.config.kAccountUrl);
         return response?.isOk ?? false;
       });
 }

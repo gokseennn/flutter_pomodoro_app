@@ -41,7 +41,7 @@ class CommonScreen<T extends BaseController> extends GetView<T> {
             )
           : null,
       body: Obx(() {
-        if (!controller.status.value.isSuccess) {
+        if (controller.status.value.isSuccess) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: SafeArea(
@@ -57,7 +57,7 @@ class CommonScreen<T extends BaseController> extends GetView<T> {
             ),
           );
         } else {
-          return ShimmerList();
+          return const ShimmerList();
         }
       }),
       bottomNavigationBar: showNavBar ? const BottomNavBar() : null,
