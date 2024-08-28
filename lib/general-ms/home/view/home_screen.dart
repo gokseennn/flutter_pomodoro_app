@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/general-ms/home/controller/home_controller.dart';
 import 'package:pomodoro_app/general-ms/home/model/task.dart';
@@ -196,7 +197,8 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          task.dueDate,
+          DateFormat('EEE, MMM d, yyyy - h:mm a')
+              .format(DateTime.parse(task.dueDate)),
           style: TextStyle(
             fontSize: 14,
             color: Colors.grey[600],
