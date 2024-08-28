@@ -5,6 +5,7 @@ import 'package:pomodoro_app/common/services/auth_service/auth_service_repositor
 import 'package:pomodoro_app/common/services/auth_service/model/login_request_dto.dart';
 import 'package:pomodoro_app/common/services/auth_service/model/user.dart';
 import 'package:pomodoro_app/common/services/storage_service/storage_service.dart';
+import 'package:pomodoro_app/user-ms/sign-in/view/sign_in_screen.dart';
 
 class AuthService extends GetxService {
   final _storageService = Get.find<StorageService>();
@@ -33,5 +34,11 @@ class AuthService extends GetxService {
       _storageService.write("user", jsonEncode(response.toJson()));
     }
     return response;
+  }
+
+  Future<void> logout() async {
+    _user.value = null;
+    await _storageService.delete("user");
+    Get.toNamed(SignInScreen.routeName);
   }
 }

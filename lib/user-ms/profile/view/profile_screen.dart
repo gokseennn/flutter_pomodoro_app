@@ -50,6 +50,17 @@ class ProfileScreen extends StatelessWidget {
                   _buildNotificationSwitch('Lock screen alert'),
                   _buildNotificationSwitch('Notification centre alert'),
                   _buildNotificationSwitch('Banner alert'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: InkWell(
+                      onTap: controller.logOut,
+                      child: const Text("Log Out",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
                 ],
               ),
             ),
