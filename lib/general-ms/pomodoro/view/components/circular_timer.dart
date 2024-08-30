@@ -33,10 +33,6 @@ class CircularTimer extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'SESSION ${controller.sessionCount}/${controller.totalSessions}',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                    ),
                     const SizedBox(height: 10),
                     Text(
                       controller

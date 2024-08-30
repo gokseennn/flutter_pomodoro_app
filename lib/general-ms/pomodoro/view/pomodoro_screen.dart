@@ -3,7 +3,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_controller.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/view/components/circular_timer.dart';
-import 'package:pomodoro_app/general-ms/pomodoro/view/components/focus_break.dart';
 
 class PomodoroScreen extends StatelessWidget {
   const PomodoroScreen({super.key});
@@ -15,7 +14,7 @@ class PomodoroScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         body: (controller) {
           return [
-            FocusAndBreak(controller: controller),
+            const SizedBox(),
             Padding(
                 padding: const EdgeInsets.only(top: 24.0),
                 child: Obx(
