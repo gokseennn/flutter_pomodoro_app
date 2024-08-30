@@ -17,11 +17,8 @@ class PomodoroScreen extends StatelessWidget {
             const SizedBox(),
             Padding(
                 padding: const EdgeInsets.only(top: 24.0),
-                child: Obx(
-                  () => CircularTimer(
-                    controller: controller,
-                    initialDuration: controller.timer.value,
-                  ),
+                child: CircularTimer(
+                  controller: controller,
                 )),
             Padding(
               padding: const EdgeInsets.only(bottom: 24.0),

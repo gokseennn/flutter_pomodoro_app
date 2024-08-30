@@ -1,22 +1,18 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_controller.dart';
 
 class CircularTimer extends StatelessWidget {
-  final int initialDuration;
-  final VoidCallback? onComplete;
   final PomodoroController controller;
-  const CircularTimer(
-      {super.key,
-      required this.initialDuration,
-      this.onComplete,
-      required this.controller});
+
+  const CircularTimer({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
-    controller.initialize(initialDuration);
     return Obx(() => SizedBox(
           width: 300,
           height: 300,
@@ -25,8 +21,9 @@ class CircularTimer extends StatelessWidget {
               CustomPaint(
                 size: const Size(300, 300),
                 painter: TimerPainter(
-                  progress:
-                      1 - (controller.currentDuration.value / initialDuration),
+                  progress: 1 -
+                      (controller.currentDuration.value /
+                          controller.timer.value),
                 ),
               ),
               Center(
@@ -46,13 +43,13 @@ class CircularTimer extends StatelessWidget {
                       style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
                     const SizedBox(height: 20),
-                    const SizedBox(height: 10),
                     Text(
-                      'WELL DONE!',
+                      controller.isRunning.value ? 'FOCUS!' : 'READY?',
                       style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.bold),
+                        fontSize: 16,
+                        color: Colors.grey[800],
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -61,9 +58,7 @@ class CircularTimer extends StatelessWidget {
                 left: 0,
                 bottom: 0,
                 child: IconButton(
-                  onPressed: () {
-                    controller.reset();
-                  },
+                  onPressed: controller.reset,
                   icon: Icon(Icons.restart_alt,
                       color: Colors.grey[400], size: 24),
                 ),
@@ -72,7 +67,7 @@ class CircularTimer extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: IconButton(
-                  onPressed: () => controller.selectedWorkTime(context),
+                  onPressed: () => controller.selectWorkTime(context),
                   icon: Icon(Icons.settings, color: Colors.grey[400], size: 24),
                 ),
               ),

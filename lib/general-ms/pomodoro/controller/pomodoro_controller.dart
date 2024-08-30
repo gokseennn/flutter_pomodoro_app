@@ -7,89 +7,90 @@ import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_repository.
 import 'package:pomodoro_app/general-ms/pomodoro/model/add_study_dto.dart';
 
 class PomodoroController extends BaseController {
-  final _repository = Get.find<PomodoroRepository>();
-  var isFocus = true.obs;
+  final PomodoroRepository _repository = Get.find<PomodoroRepository>();
 
-  late Timer _timer;
-  var currentDuration = 0.obs;
-  var isRunning = false.obs;
+  final RxBool isFocus = true.obs;
+  RxInt currentDuration = 0.obs;
+  final RxBool isRunning = false.obs;
+  final RxInt timer = 0.obs;
+  final Rx<TimeOfDay> selectedTime =
+      const TimeOfDay(hour: 0, minute: 25).obs; // Default to 25 minutes
 
-  final int sessionCount = 3;
-  final int totalSessions = 4;
-
-  var timer = 2.obs;
-
-  var selectedTime = const TimeOfDay(hour: 0, minute: 0).obs;
+  Timer? _timer;
 
   @override
-  void onInit() async {
-    futurize(() => initController());
+  void onInit() {
     super.onInit();
+    futurize(initController);
+  }
+
+  @override
+  Future<bool> initController() async {
+    reset(); // Initialize timer and currentDuration
+    return true;
   }
 
   void reset() {
     timer.value =
         selectedTime.value.hour * 3600 + selectedTime.value.minute * 60;
+    currentDuration.value = timer.value;
+    isRunning.value = false;
+    _timer?.cancel();
   }
 
-  @override
-  Future<dynamic> initController() async {
-    return true;
-  }
-
-  void setFocus(bool focus) {
-    isFocus.value = focus;
-  }
-
-  void initialize(int initialDuration) {
-    currentDuration.value = initialDuration;
-  }
+  void setFocus(bool focus) => isFocus.value = focus;
 
   void toggleTimer() {
-    isRunning.value = !isRunning.value;
-    if (isRunning.value) {
-      _startTimer();
-    } else {
-      _timer.cancel();
+    if (currentDuration.value > 0) {
+      isRunning.toggle();
+      if (isRunning.value) {
+        _startTimer();
+      } else {
+        _timer?.cancel();
+      }
     }
   }
 
-  void _startTimer() async {
-    _timer = Timer.periodic(const Duration(seconds: 1), (_) async {
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (currentDuration > 0) {
-        currentDuration.value--;
+        currentDuration--;
       } else {
-        _timer.cancel();
+        _timer?.cancel();
         isRunning.value = false;
-        currentDuration.value = timer.value;
-        await addStudy();
+        if (timer.value > 0) {
+          addStudy();
+        }
         reset();
       }
     });
   }
 
   Future<void> addStudy() async {
-    final response = await _repository.addStudy(AddStudyDto(
-        minutesStudied: timer.value.toString(),
-        studyDate: DateTime.now().toIso8601String()));
-    if (response) {
-      Get.snackbar('Success', 'Study added successfully');
-    } else {
-      Get.snackbar('Error', 'Study could not be added');
+    if (timer.value > currentDuration.value) {
+      // Only add study if some time has passed
+      final minutesStudied = (timer.value - currentDuration.value) ~/ 60;
+      final success = await _repository.addStudy(AddStudyDto(
+        minutesStudied: minutesStudied.toString(),
+        studyDate: DateTime.now().toIso8601String(),
+      ));
+
+      Get.snackbar(
+        success ? 'Success' : 'Error',
+        success ? 'Study added successfully' : 'Study could not be added',
+      );
     }
   }
 
   @override
   void onClose() {
-    if (isRunning.value) {
-      _timer.cancel();
-    }
+    _timer?.cancel();
     super.onClose();
   }
 
   String formatDuration(int duration) {
-    int minutes = duration ~/ 60;
-    int seconds = duration % 60;
+    final minutes = duration ~/ 60;
+    final seconds = duration % 60;
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
@@ -101,18 +102,16 @@ class PomodoroController extends BaseController {
 
   void setTime(TimeOfDay time) {
     selectedTime.value = time;
-    timer.value = time.hour * 3600 + time.minute * 60;
+    reset();
   }
 
-  void selectedWorkTime(BuildContext context) async {
-    var pickedTime = await showTimePicker(
+  Future<void> selectWorkTime(BuildContext context) async {
+    final pickedTime = await showTimePicker(
       context: context,
       initialTime: selectedTime.value,
       builder: (BuildContext context, Widget? child) {
         return MediaQuery(
-          data: MediaQuery.of(context).copyWith(
-            alwaysUse24HourFormat: true, // 24 saat formatı
-          ),
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child!,
         );
       },
