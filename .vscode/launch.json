@@ -5,13 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Flutter (debug)",
+            "name": "Flutter (development)",
             "program": "lib/main.dart",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
             "args": [
                 "--dart-define=environment=development",
+            ]
+        },
+        {
+            "name": "Flutter (production)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define=environment=production",
             ]
         },
     ]

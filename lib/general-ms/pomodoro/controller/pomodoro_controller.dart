@@ -28,7 +28,8 @@ class PomodoroController extends BaseController {
   }
 
   void reset() {
-    timer.value = 10;
+    timer.value =
+        selectedTime.value.hour * 3600 + selectedTime.value.minute * 60;
   }
 
   @override
@@ -54,12 +55,13 @@ class PomodoroController extends BaseController {
   }
 
   void _startTimer() async {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) async {
       if (currentDuration > 0) {
         currentDuration.value--;
       } else {
         _timer.cancel();
         isRunning.value = false;
+        currentDuration.value = timer.value;
         await addStudy();
         reset();
       }

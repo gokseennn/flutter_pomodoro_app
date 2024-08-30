@@ -26,8 +26,6 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  _buildAccountDetailRow('Name', 'David'),
                   const SizedBox(height: 15),
                   _buildAccountDetailRow('Email Address', 'D*****F@Gmail.com'),
                   const SizedBox(height: 15),
