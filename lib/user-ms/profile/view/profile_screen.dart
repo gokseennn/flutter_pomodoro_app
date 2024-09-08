@@ -110,25 +110,25 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNotificationSwitch(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          Switch(
-              value: false,
-              onChanged: (bool value) {},
-              activeColor: Colors.black,
-              inactiveThumbColor: Colors.white,
-              inactiveTrackColor: Colors.black),
-        ],
-      ),
-    );
-  }
+  // Widget _buildNotificationSwitch(String title) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 15.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           title,
+  //           style: const TextStyle(
+  //               fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+  //         ),
+  //         Switch(
+  //             value: false,
+  //             onChanged: (bool value) {},
+  //             activeColor: Colors.black,
+  //             inactiveThumbColor: Colors.white,
+  //             inactiveTrackColor: Colors.black),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

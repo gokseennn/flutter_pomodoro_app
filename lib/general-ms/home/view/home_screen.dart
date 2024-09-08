@@ -57,51 +57,51 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHabitsList(HomeController controller) {
-    return SizedBox(
-      height: 110,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: 4,
-        itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: _buildHabitCircle(index, controller),
-        ),
-      ),
-    );
-  }
+  // Widget _buildHabitsList(HomeController controller) {
+  //   return SizedBox(
+  //     height: 110,
+  //     child: ListView.builder(
+  //       scrollDirection: Axis.horizontal,
+  //       physics: const AlwaysScrollableScrollPhysics(),
+  //       itemCount: 4,
+  //       itemBuilder: (context, index) => Padding(
+  //         padding: const EdgeInsets.only(right: 16),
+  //         child: _buildHabitCircle(index, controller),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _buildHabitCircle(int index, HomeController controller) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.grey[500]!, width: 3),
-          ),
-          child: index == 0
-              ? Icon(Icons.add, color: Colors.grey[500], size: 30)
-              : null,
-        ),
-        if (index == 0)
-          Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              'ADD/EDIT\nHABIT',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 10,
-                height: 1.2,
-              ),
-            ),
-          ),
-      ],
-    );
-  }
+  // Widget _buildHabitCircle(int index, HomeController controller) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         width: 80,
+  //         height: 80,
+  //         decoration: BoxDecoration(
+  //           shape: BoxShape.circle,
+  //           border: Border.all(color: Colors.grey[500]!, width: 3),
+  //         ),
+  //         child: index == 0
+  //             ? Icon(Icons.add, color: Colors.grey[500], size: 30)
+  //             : null,
+  //       ),
+  //       if (index == 0)
+  //         Padding(
+  //           padding: const EdgeInsets.only(top: 4),
+  //           child: Text(
+  //             'ADD/EDIT\nHABIT',
+  //             textAlign: TextAlign.center,
+  //             style: TextStyle(
+  //               color: Colors.grey[500],
+  //               fontSize: 10,
+  //               height: 1.2,
+  //             ),
+  //           ),
+  //         ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildAddTaskButton(HomeController controller) {
     return InkWell(

@@ -39,7 +39,6 @@ class NotificationService extends GetxService {
     if (Platform.isAndroid) {
       var status = await Permission.notification.status;
       if (!status.isGranted) {
-        print('Bildirim izni verilmedi.');
         return;
       }
     }
