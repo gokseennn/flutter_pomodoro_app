@@ -6,16 +6,16 @@ import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/api_provider_enum.dart';
 import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
 import 'package:pomodoro_app/common/services/storage_service/storage_service.dart';
-import 'package:pomodoro_app/general-ms/general_routes.dart';
-import 'package:pomodoro_app/general-ms/home/controller/home_binding.dart';
-import 'package:pomodoro_app/general-ms/home/view/home_screen.dart';
-import 'package:pomodoro_app/general-ms/welcome/controller/welcome_binding.dart';
-import 'package:pomodoro_app/general-ms/welcome/view/welcome_screen.dart';
-import 'package:pomodoro_app/user-ms/user_routes.dart';
+import 'package:pomodoro_app/pomodoro_app.dart';
 
 void main() async {
   Environment.initConfig();
   WidgetsFlutterBinding.ensureInitialized();
+  await initServices();
+  runApp(PomodoroApp());
+}
+
+Future<void> initServices() async {
   await Get.putAsync(() async => StorageService().init());
   Get.put(
     ApiService(
@@ -43,22 +43,4 @@ void main() async {
     permanent: true,
   );
   Get.put(AuthService(), permanent: true).init();
-
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final AuthService _authService = Get.find<AuthService>();
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-        defaultTransition: Transition.noTransition,
-        initialBinding:
-            _authService.user == null ? WelcomeBinding() : HomeBinding(),
-        initialRoute: _authService.user == null
-            ? WelcomeScreen.routeName
-            : HomeScreen.routeName,
-        getPages: GeneralRoutes.routes + UserRoutes.routes);
-  }
 }

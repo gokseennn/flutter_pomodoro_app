@@ -27,13 +27,18 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  _buildAccountDetailRow('Email Address', 'D*****F@Gmail.com'),
+                  _buildAccountDetailRow(
+                      'Email Address', controller.user.email),
                   const SizedBox(height: 15),
-                  _buildAccountDetailRow('Phone', '5** *** **9',
-                      showEyeIcon: true),
+                  _buildAccountDetailRow(
+                    'Phone',
+                    controller.user.phoneNumber,
+                  ),
                   const SizedBox(height: 15),
-                  _buildAccountDetailRow('Password', '********',
-                      showEyeIcon: true),
+                  _buildAccountDetailRow(
+                    'Password',
+                    controller.user.password,
+                  ),
                   const SizedBox(height: 20),
                   const SizedBox(height: 40),
                   const Text(
@@ -68,8 +73,10 @@ class ProfileScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildAccountDetailRow(String title, String value,
-      {bool showEyeIcon = false}) {
+  Widget _buildAccountDetailRow(
+    String title,
+    String value,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -95,28 +102,10 @@ class ProfileScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                if (showEyeIcon) ...[
-                  const SizedBox(width: 10),
-                  const Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: Colors.black45,
-                    size: 20,
-                  ),
-                ],
               ],
             ),
           ],
         ),
-        if (!showEyeIcon)
-          IconButton(
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.black45,
-            ),
-            onPressed: () {
-              // Düzenleme işlemleri
-            },
-          ),
       ],
     );
   }
@@ -134,9 +123,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           Switch(
               value: false,
-              onChanged: (bool value) {
-                // Bildirim ayarlarını değiştir
-              },
+              onChanged: (bool value) {},
               activeColor: Colors.black,
               inactiveThumbColor: Colors.white,
               inactiveTrackColor: Colors.black),
