@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NotificationService extends GetxService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -22,11 +25,25 @@ class NotificationService extends GetxService {
             iOS: initializationSettingsIOS);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await requestPermissions();
 
     return this;
   }
 
-  Future<void> showNotification() async {
+  Future<void> showNotification({
+    required String title,
+    required String body,
+    int id = 0,
+  }) async {
+    // Bildirim izni verildiyse bildirimi göster
+    if (Platform.isAndroid) {
+      var status = await Permission.notification.status;
+      if (!status.isGranted) {
+        print('Bildirim izni verilmedi.');
+        return;
+      }
+    }
+
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       'pomodoro_channel_id',
       'Pomodoro Notifications',
@@ -39,21 +56,30 @@ class NotificationService extends GetxService {
         iOS: iOSPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(
-      0,
-      'Pomodoro Tamamlandı',
-      '25 dakikalık çalışma süresi bitti!',
+      id,
+      title,
+      body,
       platformChannelSpecifics,
     );
   }
 
-  Future<void> requestIOSPermissions() async {
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+  Future<void> requestPermissions() async {
+    if (Platform.isAndroid) {
+      // Android için notification izni iste
+      var status = await Permission.notification.status;
+      if (!status.isGranted) {
+        await Permission.notification.request();
+      }
+    } else if (Platform.isIOS) {
+      // iOS için notification izni iste
+      await flutterLocalNotificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+          );
+    }
   }
 }

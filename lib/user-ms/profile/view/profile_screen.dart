@@ -39,20 +39,20 @@ class ProfileScreen extends StatelessWidget {
                     'Password',
                     controller.user.password,
                   ),
-                  const SizedBox(height: 20),
-                  const SizedBox(height: 40),
-                  const Text(
-                    'NOTIFICATIONS',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  _buildNotificationSwitch('Lock screen alert'),
-                  _buildNotificationSwitch('Notification centre alert'),
-                  _buildNotificationSwitch('Banner alert'),
+                  // const SizedBox(height: 20),
+                  // const SizedBox(height: 40),
+                  // const Text(
+                  //   'NOTIFICATIONS',
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.black,
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20),
+                  // _buildNotificationSwitch('Lock screen alert'),
+                  // _buildNotificationSwitch('Notification centre alert'),
+                  // _buildNotificationSwitch('Banner alert'),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: InkWell(

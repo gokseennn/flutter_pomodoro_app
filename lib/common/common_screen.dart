@@ -57,7 +57,7 @@ class CommonScreen<T extends BaseController> extends GetView<T> {
             ),
           );
         } else {
-          return const ShimmerList();
+          return const ShimmerLoading();
         }
       }),
       bottomNavigationBar: showNavBar ? const BottomNavBar() : null,

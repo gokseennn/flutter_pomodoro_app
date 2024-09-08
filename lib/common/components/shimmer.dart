@@ -1,46 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerList extends StatelessWidget {
-  const ShimmerList({super.key});
+class ShimmerLoading extends StatelessWidget {
+  const ShimmerLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double itemHeight = constraints.maxHeight / 5; // 5 dikdörtgenli liste
-        return ListView.builder(
-          itemCount: 5, // Listeye eklemek istediğiniz dikdörtgen sayısı
-          itemBuilder: (context, index) {
-            return Shimmer(
-              gradient: LinearGradient(
-                colors: [Colors.grey[400]!, Colors.grey[100]!],
-                stops: const [0.0, 1.0],
-                begin: const Alignment(-1.0, 0.0),
-                end: const Alignment(1.0, 0.0),
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: 6,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 80.0,
+                height: 80.0,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14)),
               ),
-              period: const Duration(seconds: 2), // Shimmer animasyon süresi
-              child: ShimmerItem(itemHeight: itemHeight),
-            );
-          },
+              const SizedBox(width: 20.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 15.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      width: 200,
+                      height: 15.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Container(
+                      width: 120.0,
+                      height: 15.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         );
       },
-    );
-  }
-}
-
-class ShimmerItem extends StatelessWidget {
-  final double itemHeight;
-
-  const ShimmerItem({super.key, required this.itemHeight});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      width: MediaQuery.of(context).size.width, // Ekran genişliği kadar
-      height: itemHeight, // Ekran yüksekliğine göre orantılı yükseklik
-      color: Colors.grey,
+      separatorBuilder: (context, _) => const SizedBox(height: 15),
     );
   }
 }

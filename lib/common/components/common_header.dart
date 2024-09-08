@@ -38,21 +38,16 @@ class CommonHeader extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          Expanded(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
                             child: InkWell(
                               onTap: () {
                                 Get.toNamed(ProfileScreen.routeName);
                               },
-                              child: Container(
-                                width: 45,
-                                height: 45,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey,
-                                ),
-                              ),
+                              child: const Icon(Icons.menu),
                             ),
                           ),
+                          const Spacer(),
                           Expanded(
                             child: Center(
                                 child:

@@ -46,6 +46,8 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   shimmer: ^3.0.0
   flutter_local_notifications: ^17.2.2
+  permission_handler: ^11.3.1
+  redacted: ^1.0.12
 
 
 dev_dependencies:

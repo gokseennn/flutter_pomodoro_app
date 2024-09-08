@@ -16,8 +16,7 @@ class PomodoroController extends BaseController {
   RxInt currentDuration = 0.obs;
   final RxBool isRunning = false.obs;
   final RxInt timer = 0.obs;
-  final Rx<TimeOfDay> selectedTime =
-      const TimeOfDay(hour: 0, minute: 25).obs; // Default to 25 minutes
+  final Rx<TimeOfDay> selectedTime = const TimeOfDay(hour: 0, minute: 25).obs;
 
   Timer? _timer;
 
@@ -29,7 +28,6 @@ class PomodoroController extends BaseController {
 
   @override
   Future<bool> initController() async {
-    await _notificationService.requestIOSPermissions();
     reset();
     return true;
   }
@@ -72,19 +70,17 @@ class PomodoroController extends BaseController {
 
   Future<void> addStudy() async {
     if (timer.value > currentDuration.value) {
-      // Only add study if some time has passed
       final minutesStudied = (timer.value - currentDuration.value) ~/ 60;
       final success = await _repository.addStudy(AddStudyDto(
         minutesStudied: minutesStudied.toString(),
         studyDate: DateTime.now().toIso8601String(),
       ));
       if (success) {
-        _notificationService.showNotification();
+        _notificationService.showNotification(
+          title: 'Pomodoro Tamamlandı',
+          body: '$minutesStudied dakikalık çalışma süresi bitti!',
+        );
       }
-      Get.snackbar(
-        success ? 'Success' : 'Error',
-        success ? 'Study added successfully' : 'Study could not be added',
-      );
     }
   }
 

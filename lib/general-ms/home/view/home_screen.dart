@@ -23,10 +23,10 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSectionTitle('YOUR HABITS'),
-                  const SizedBox(height: 16),
-                  _buildHabitsList(controller),
-                  const SizedBox(height: 40),
+                  // _buildSectionTitle('YOUR HABITS'),
+                  // const SizedBox(height: 16),
+                  // _buildHabitsList(controller),
+                  // const SizedBox(height: 40),
                   _buildSectionTitle('Your tasks'),
                   const SizedBox(height: 16),
                   _buildAddTaskButton(controller),
