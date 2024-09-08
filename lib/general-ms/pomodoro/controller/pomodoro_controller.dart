@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pomodoro_app/common/controller/base_controller.dart';
+import 'package:pomodoro_app/common/services/notifications_service/notifications_service.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/controller/pomodoro_repository.dart';
 import 'package:pomodoro_app/general-ms/pomodoro/model/add_study_dto.dart';
 
 class PomodoroController extends BaseController {
   final PomodoroRepository _repository = Get.find<PomodoroRepository>();
+  final NotificationService _notificationService =
+      Get.find<NotificationService>();
 
   final RxBool isFocus = true.obs;
   RxInt currentDuration = 0.obs;
@@ -26,7 +29,8 @@ class PomodoroController extends BaseController {
 
   @override
   Future<bool> initController() async {
-    reset(); // Initialize timer and currentDuration
+    await _notificationService.requestIOSPermissions();
+    reset();
     return true;
   }
 
@@ -74,7 +78,9 @@ class PomodoroController extends BaseController {
         minutesStudied: minutesStudied.toString(),
         studyDate: DateTime.now().toIso8601String(),
       ));
-
+      if (success) {
+        _notificationService.showNotification();
+      }
       Get.snackbar(
         success ? 'Success' : 'Error',
         success ? 'Study added successfully' : 'Study could not be added',

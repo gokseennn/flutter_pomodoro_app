@@ -5,6 +5,7 @@ import 'package:pomodoro_app/common/environment/environment.dart';
 import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/api_provider_enum.dart';
 import 'package:pomodoro_app/common/services/auth_service/auth_service.dart';
+import 'package:pomodoro_app/common/services/notifications_service/notifications_service.dart';
 import 'package:pomodoro_app/common/services/storage_service/storage_service.dart';
 import 'package:pomodoro_app/pomodoro_app.dart';
 
@@ -43,4 +44,5 @@ Future<void> initServices() async {
     permanent: true,
   );
   Get.put(AuthService(), permanent: true).init();
+  await Get.putAsync(() => NotificationService().init());
 }

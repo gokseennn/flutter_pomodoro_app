@@ -53,12 +53,10 @@ class CommonHeader extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Expanded(
-                            child: Text(
-                              "Pomodoro",
-                              style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.bold),
-                            ),
+                          Expanded(
+                            child: Center(
+                                child:
+                                    SvgPicture.asset('assets/icons/pomo.svg')),
                           ),
                           const Spacer(),
                         ],

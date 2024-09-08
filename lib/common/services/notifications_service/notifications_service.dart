@@ -1,85 +1,59 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:get/get.dart';
-// import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 
-// class NotificationService extends GetxService with WidgetsBindingObserver {
-//   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+class NotificationService extends GetxService {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     WidgetsBinding.instance.addObserver(this);
-//     _initNotification();
-//   }
+  Future<NotificationService> init() async {
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
-//   @override
-//   void onClose() {
-//     WidgetsBinding.instance.removeObserver(this);
-//     super.onClose();
-//   }
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
 
-//   @override
-//   void didChangeAppLifecycleState(AppLifecycleState state) {
-//     if (state == AppLifecycleState.paused) {
-//       _showNotification();
-//     }
-//   }
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS);
 
-//   void _initNotification() {
-//     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
-//     const initializationSettingsAndroid =
-//         AndroidInitializationSettings('@mipmap/ic_launcher');
+    return this;
+  }
 
-//     // iOS için DarwinInitializationSettings kullanıyoruz
-//     const initializationSettingsIOS = DarwinInitializationSettings();
+  Future<void> showNotification() async {
+    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+      'pomodoro_channel_id',
+      'Pomodoro Notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
 
-//     const initializationSettings = InitializationSettings(
-//       android: initializationSettingsAndroid,
-//       iOS: initializationSettingsIOS,
-//     );
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Pomodoro Tamamlandı',
+      '25 dakikalık çalışma süresi bitti!',
+      platformChannelSpecifics,
+    );
+  }
 
-//     flutterLocalNotificationsPlugin.initialize(initializationSettings);
-//   }
-
-//   Future<void> _showNotification() async {
-//     final deviceInfo = DeviceInfoPlugin();
-//     String deviceName = 'Unknown';
-//     String deviceModel = 'Unknown';
-
-//     if (GetPlatform.isAndroid) {
-//       var androidInfo = await deviceInfo.androidInfo;
-//       deviceName = androidInfo.brand;
-//       deviceModel = androidInfo.model;
-//     } else if (GetPlatform.isIOS) {
-//       var iosInfo = await deviceInfo.iosInfo;
-//       deviceName = iosInfo.name;
-//       deviceModel = iosInfo.model;
-//     }
-
-//     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//       'your_channel_id',
-//       'your_channel_name',
-//       channelDescription: 'your_channel_description', // Burayı ekleyin
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       ticker: 'ticker',
-//     );
-
-//     // iOS için DarwinNotificationDetails kullanıyoruz
-//     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
-
-//     const platformChannelSpecifics = NotificationDetails(
-//       android: androidPlatformChannelSpecifics,
-//       iOS: iOSPlatformChannelSpecifics,
-//     );
-
-//     await flutterLocalNotificationsPlugin.show(
-//       0,
-//       'Arka Planda: $deviceName',
-//       'Model: $deviceModel - Uygulama arka planda çalışıyor',
-//       platformChannelSpecifics,
-//     );
-//   }
-// }
+  Future<void> requestIOSPermissions() async {
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+}
