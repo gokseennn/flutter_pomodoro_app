@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pomodoro_app/common/environment/environment.dart';
 import 'package:pomodoro_app/common/services/api_service/api_service.dart';
 import 'package:pomodoro_app/common/services/api_service/model/http_method_enum.dart';
 import 'package:pomodoro_app/common/util.dart';
@@ -9,7 +10,7 @@ class StatisticRepository {
 
   Future<List<DayStatistics>> getStatistics() async {
     final response = await _apiService.request(
-      path: "http://localhost:5111/Study/getStudies",
+      path: "${Environment.config.kStudyUrl}/getStudies",
       method: HttpMethod.get,
     );
 

@@ -12,90 +12,38 @@ class StatisticScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonScreen<StatisticController>(
         showIcon: true,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         body: (controller) {
           return [
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: const Icon(Icons.arrow_back),
-                        ),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: const Icon(
-                                Icons.arrow_back_ios,
-                                size: 14,
-                              ),
-                            ),
-                            const Text(
-                              'This week',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        const Icon(Icons.calendar_month)
-                      ],
+            const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Mesaj
+                  SizedBox(height: 20),
+                  Text(
+                    'We are launching soon!',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    Text("Daily avarage 4h23m",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                            fontWeight: FontWeight.bold)),
-                    Obx(
-                      () => SfCartesianChart(
-                        primaryXAxis: const CategoryAxis(
-                          majorGridLines: MajorGridLines(width: 0),
-                        ),
-                        primaryYAxis: NumericAxis(
-                          minimum: 0,
-                          interval: 10,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Stay tuned for updates',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
 
-                          majorGridLines: const MajorGridLines(width: 0),
-                          labelFormat:
-                              '{value}M', // Y eksenine saat formatında etiketler ekler.
-                          labelStyle: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        series: <CartesianSeries<dynamic, String>>[
-                          ColumnSeries<ChartData, String>(
-                            dataSource: controller.data.value,
-                            xValueMapper: (ChartData data, _) => data.day,
-                            yValueMapper: (ChartData data, _) => data.value,
-                            pointColorMapper: (ChartData data, _) => data.color,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            width: 0.5,
-                            spacing: 0.2,
-                          )
-                        ],
-                      ),
-                    ),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                    _buildEventItem('Lunch with Client', 'Friday, 12:30 PM'),
-                  ],
-                ),
+                  // Sosyal Medya İkonları
+                  SizedBox(height: 30),
+                ],
               ),
-            )
+            ),
           ];
         });
   }

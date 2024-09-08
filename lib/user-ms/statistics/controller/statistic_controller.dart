@@ -12,8 +12,7 @@ class StatisticController extends BaseController {
   final List<DayStatistics> statisticsList = [];
   @override
   Future<void> initController() async {
-    await getDayStatistics();
-
+    //  await getDayStatistics();
     return super.initController();
   }
 
