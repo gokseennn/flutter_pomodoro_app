@@ -2,7 +2,7 @@ import '../i_environment_config.dart';
 
 class ProductionConfig extends IEnvrionmentConfig {
   @override
-  String get apiHost => 'http://128.0.1.233:8080';
+  String get apiHost => 'https://ahmetgoksenakyildiz.software';
   @override
-  String get host => 'http://128.0.1.233:8080';
+  String get host => 'https://ahmetgoksenakyildiz.software';
 }

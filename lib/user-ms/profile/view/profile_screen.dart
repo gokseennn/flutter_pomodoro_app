@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_app/common/common_screen.dart';
 import 'package:pomodoro_app/user-ms/profile/controller/profile_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -38,6 +39,48 @@ class ProfileScreen extends StatelessWidget {
                   _buildAccountDetailRow(
                     'Password',
                     controller.user.password,
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(height: 15),
+
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          "https://akyildizsoftware.xyz/privacy-policy.html"));
+                    },
+                    child: const Text(
+                      'Privacy Policy',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          "https://akyildizsoftware.xyz/terms-of-service.html"));
+                    },
+                    child: const Text(
+                      'Terms of Service',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 1,
+                    color: Colors.black,
                   ),
                   // const SizedBox(height: 20),
                   // const SizedBox(height: 40),
