@@ -24,5 +24,15 @@
                 "--dart-define=environment=production",
             ]
         },
+        {
+            "name": "Flutter (production - release)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define=environment=production",
+            ]
+        },
     ]
 }
