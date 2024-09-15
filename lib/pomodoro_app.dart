@@ -14,6 +14,7 @@ class PomodoroApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         defaultTransition: Transition.noTransition,
         initialBinding:
             _authService.user == null ? WelcomeBinding() : HomeBinding(),
