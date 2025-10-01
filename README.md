@@ -1,43 +1,85 @@
-# 🍅 Pomodoro & Görev Yönetimi (Clean/Layered GetX)
+# 🍅 Pomodoro & Görev Yönetimi
 
-**Flutter** ve **GetX** ile geliştirilmiş, Pomodoro tekniği ve görev yönetimi özelliklerini bir araya getiren yüksek performanslı ve modüler bir mobil uygulama. Proje, **Clean Architecture** prensipleri ve katmanlı servis yapısıyla, **Production-Ready** bir mimari olarak tasarlanmıştır.
+<div align="center">
 
----
+**Flutter Uygulaması**
 
-## 📱 Proje Hakkında
+Clean Architecture • GetX • Modüler Tasarım
 
-Uygulama, kullanıcıların odaklanma sürelerini optimize etmelerine, tamamladıkları çalışma seanslarını kaydetmelerine ve istatistiklerini takip etmelerine olanak tanır. Proje, bakım kolaylığı ve ölçeklenebilirlik göz önünde bulundurularak **Modüler Mimari** ile tasarlanmıştır.
+[Özellikler](#-özellikler) • [Mimari](#️-mimari) • [Kurulum](#-kurulum) • [Kullanım](#-kullanım)
 
----
-
-## 🌟 Temel Özellikler
-
-* **Gelişmiş Pomodoro Sayacı:** Özelleştirilebilir odaklanma ve mola süreleri (`PomodoroController` ve `selectWorkTime` metodu).
-* **Özel Çizim (CustomPainter) Zamanlayıcı:** Görsel olarak zengin, pürüzsüz animasyonlu dairesel geri sayım göstergesi (`CircularTimer`).
-* **Anlık Veri Senkronizasyonu:** Tamamlanan her çalışma seansının **API'ya kaydedilmesi** (`AddStudyDto` ile `PomodoroRepository`).
-* **Yerel Bildirimler:** Seans bittiğinde kullanıcıyı uyaran, platformlar arası bildirim yönetimi. (**`NotificationService`** ve **`permission_handler`** entegrasyonu).
-* **Token ve Oturum Yönetimi:** JWT/Token'ın güvenli **yerel depolamada** saklanması ve otomatik yetkilendirme (`AuthService` ve `StorageService`).
-* **Detaylı İstatistikler:** Çalışma geçmişini, günlük bazda çalışılan dakika ve tarih bazlı verilerle takip etme (`StatisticRepository` ve `DayStatistics`).
+</div>
 
 ---
 
-## 🏗️ Teknik Mimari
+## 📖 Genel Bakış
 
-Proje, **Flutter**, **Dio** ve **GetX** kombinasyonu ile **Katmanlı (Layered) / Clean Architecture** prensiplerine tam uyum sağlayarak geliştirilmiştir.
+**Flutter** ve **GetX** ile geliştirilmiş, Pomodoro tekniği ve görev yönetimi özelliklerini bir araya getiren yüksek performanslı mobil uygulama. Proje, **Clean Architecture** prensipleri ve katmanlı servis yapısıyla production-ready bir mimari sunar.
 
-### State Management & MVC Yapısı
+### 🎯 Ne Sunar?
 
-* **GetX:** Reaktif **Durum Yönetimi (State Management)**, **Bağımlılık Enjeksiyonu (DI)** ve **Rota Yönetimi** (`GetMaterialApp`, `Get.toNamed`).
-* **Modüler MVC:** Her bir özellik (Pomodoro, İstatistik) kendi içinde **`Controller`**, **`Repository`**, **`Model`**, **`Binding`** ve **`View`** sınıflarıyla ayrı modüller halinde tutulmuştur.
+Kullanıcıların odaklanma sürelerini optimize etmelerine, tamamladıkları çalışma seanslarını kaydetmelerine ve detaylı istatistiklerini takip etmelerine olanak tanır. Bakım kolaylığı ve ölçeklenebilirlik odaklı **modüler mimari** ile tasarlanmıştır.
 
-### Mimari Tasarım Desenleri
+---
 
-#### 1. Base Controller Pattern
+## ✨ Özellikler
 
-Tüm Controller'lar **`BaseController`**'dan kalıtım alır. Bu yapı, otomatik durum yönetimi (yüklenme, hata, başarı) sağlar.
+### 🔐 Güvenlik & Veri Yönetimi
+
+- **Token Tabanlı Kimlik Doğrulama**
+  - JWT/Token'ın güvenli yerel depolamada saklanması
+  - Otomatik yetkilendirme ile `AuthService` entegrasyonu
+
+- **Anlık Veri Senkronizasyonu**
+  - Her çalışma seansı otomatik API'ya kaydedilir
+  - `AddStudyDto` ile `PomodoroRepository` üzerinden veri transferi
+
+### 📊 Analitik & Raporlama
+
+- **Detaylı İstatistikler**
+  - Günlük, haftalık ve aylık çalışma takibi
+  - Tarih bazlı veri görselleştirme
+  - `StatisticRepository` ve `DayStatistics` modelleri
+
+---
+
+## 🏗️ Mimari
+
+### 🎯 Teknoloji Stack
+
+```
+Flutter • GetX • Dio • Clean Architecture
+```
+
+### 📐 Mimari Prensipler
+
+#### **1. Clean Architecture & Katmanlı Yapı**
+
+Proje, **Katmanlı (Layered)** ve **Clean Architecture** prensiplerine tam uyum sağlar:
+
+- ✅ Separation of Concerns (İlgi Alanlarının Ayrılması)
+- ✅ Dependency Inversion (Bağımlılık Tersine Çevirme)
+- ✅ Single Responsibility (Tek Sorumluluk)
+- ✅ Testable & Maintainable (Test Edilebilir & Sürdürülebilir)
+
+#### **2. State Management & MVC**
+
+**GetX** kullanılarak reaktif ve performanslı state management:
+
+- **Durum Yönetimi:** Reaktif veri akışı ve otomatik UI güncellemeleri
+- **Bağımlılık Enjeksiyonu:** `Get.put()`, `Get.lazyPut()` ile DI pattern
+- **Rota Yönetimi:** `GetMaterialApp` ve `Get.toNamed()` ile navigasyon
+- **Modüler MVC:** Her özellik için ayrı `Controller`, `Repository`, `Model`, `Binding`, `View`
+
+---
+
+## 🎨 Tasarım Desenleri
+
+### 🔷 Base Controller Pattern
+
+Tüm controller'lar merkezi **`BaseController`**'dan kalıtım alır:
 
 ```dart
-// BaseController'dan bir alıntı
 abstract class BaseController extends GetxController with GetTickerProviderStateMixin {
   var status = RxStatus.loading().obs;
 
@@ -54,21 +96,75 @@ abstract class BaseController extends GetxController with GetTickerProviderState
 }
 ```
 
-Merkezi API Servis Mimarisi
+### 🌐 Merkezi API Servis Mimarisi
 
-ApiService (Dio Wrapper): HTTP kütüphanesi (Dio) üzerine soyutlanmış, özel bir wrapper.
+**`ApiService`** - Dio Wrapper ile güçlendirilmiş HTTP yönetimi:
 
-Global Loading Yönetimi: Tüm API çağrıları için merkezi bir ApiLoading (global spinner) mekanizması entegre edilmiştir.
+- **Global Loading:** Tüm API çağrıları için merkezi spinner
+- **Merkezi Hata Yönetimi:** `onError` callback ile otomatik AlertDialog
+- **Provider Soyutlaması:** `IApiProvider` interface ile kütüphane bağımsızlığı
+- **Response Extension:** `response?.isOk ?? false` gibi okunabilir uzantılar
 
-Merkezi Hata Yönetimi: Tüm HTTP hataları yakalanır ve main.dart içinde tanımlanan onError callback'i ile kullanıcıya anında AlertDialog ile gösterilir.
+### 🌍 Ortam Yönetimi
 
-Provider Soyutlaması (IApiProvider): Dio kütüphanesini soyutlayarak gelecekte farklı bir HTTP kütüphanesine geçişi kolaylaştırır.
+Dinamik ortam yapılandırması:
 
-Response Extension: Okunabilir kod için response?.isOk ?? false gibi özel uzantılar (util.dart dosyasında) kullanılır.
+```bash
+# Development ortamı
+flutter run --dart-define=environment=development
 
-Ortam Yönetimi (Environment)
+# Production ortamı
+flutter run --dart-define=environment=production
+```
 
-Uygulama, --dart-define=environment= bayrağı ile dinamik olarak development ve production ortamlarında çalıştırılabilir.
-Proje Yapısı
-Proje, özellik tabanlı (Feature-based) ve katmanlı (Layered) bir yaklaşımla organize edilmiştir:
+---
+
+## 📁 Proje Yapısı
+
+```
+lib/
+├── 📂 common/                          # Ortak bileşenler ve servisler
+│   ├── 📂 components/                  # Paylaşılan UI bileşenleri
+│   │   ├── CommonScreen               # Genel ekran şablonu
+│   │   ├── Shimmer                    # Yükleme animasyonları
+│   │   ├── ApiLoading                 # API yükleme göstergesi
+│   │   └── BottomNavBar               # Alt navigasyon çubuğu
+│   │
+│   ├── 📂 controller/                  # Ortak controller mantığı
+│   │   ├── BaseController             # Temel controller sınıfı
+│   │   └── BottomNavController        # Navigasyon yönetimi
+│   │
+│   ├── 📂 environment/                 # Ortam yapılandırmaları
+│   │   ├── ProdEnvironment            # Production ayarları
+│   │   └── DevEnvironment             # Development ayarları
+│   │
+│   ├── 📂 services/                    # Temel servisler
+│   │   ├── ApiService                 # HTTP servisi (Dio wrapper)
+│   │   ├── AuthService                # Kimlik doğrulama
+│   │   ├── StorageService             # Yerel depolama
+│   │   └── NotificationService        # Bildirim yönetimi
+│   │
+│   └── 📄 util.dart                    # Yardımcı sınıflar ve uzantılar
+│       └── (ResponseExtension, FuturizeHelper Mixin)
+│
+├── 📂 general-ms/                      # Genel modüller
+│   └── 📂 pomodoro/                    # Pomodoro özelliği
+│       ├── 📂 controller/
+│       │   ├── PomodoroController     # İş mantığı
+│       │   └── PomodoroRepository     # Veri yönetimi
+│       ├── 📂 model/
+│       │   └── AddStudyDto            # Veri transfer objesi
+│       └── 📂 view/
+│           ├── PomodoroScreen         # Ana ekran
+│           └── CircularTimer          # Zamanlayıcı bileşeni
+│
+└── 📂 user-ms/                         # Kullanıcıya özel modüller
+    └── 📂 statistics/                  # İstatistik özelliği
+        ├── 📂 controller/
+        │   ├── StatisticController    # İş mantığı
+        │   └── StatisticRepository    # Veri yönetimi
+        └── 📂 model/
+            ├── DayStatistics          # Günlük istatistikler
+            └── ChartData              # Grafik verileri
+```
 
