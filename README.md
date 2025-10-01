@@ -52,8 +52,9 @@ abstract class BaseController extends GetxController with GetTickerProviderState
     }
   }
 }
+```
 
- Merkezi API Servis Mimarisi
+Merkezi API Servis Mimarisi
 
 ApiService (Dio Wrapper): HTTP kütüphanesi (Dio) üzerine soyutlanmış, özel bir wrapper.
 
